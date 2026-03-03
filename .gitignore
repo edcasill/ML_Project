@@ -1,1 +1,15 @@
 archive.zip
+.venv
+*.vscode
+*.tmp
+*.lyx~
+.tex
+*.log
+*.aux
+*.png
+*.synctex
+*.gz
+*.out
+img
+exoplanets_clean.csv
+__pycache__
