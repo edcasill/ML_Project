@@ -1,0 +1,28 @@
+# ==========================================
+    # 3. PRUEBA CON DATOS REALES AISLADOS
+    # ==========================================
+    print('\n--- Prueba de Inferencia con Datos Crudos ---')
+
+    # Dato Crudo 1: Kepler-227 b (Debería predecir 1 - Exoplaneta)
+    # Características: periodo, tiempo de tránsito, impacto, duración, profundidad, radio, temperatura, etc.
+    kepler_227b = jnp.array([9.48803557, 170.53875, 0.146, 2.9575, 615.8, 2.26, 793.0, 93.59, 35.8, 1.0, 5455.0, 4.467, 0.927, 291.93423, 48.141651, 15.347])
+    
+    # Dato Crudo 2: KOI-351 (Debería predecir 0 - Falso Positivo)
+    falso_positivo = jnp.array([19.89913995, 175.850252, 0.969, 1.7822, 10829.0, 14.6, 638.0, 39.3, 76.3, 1.0, 5853.0, 4.544, 0.868, 297.00482, 48.134129, 15.436])
+
+    # PASO A: Normalizar usando la media y desviación del Training Set
+    kepler_norm = (kepler_227b - scaler_mean) / scaler_std
+    fp_norm = (falso_positivo - scaler_mean) / scaler_std
+
+    # PASO B: Ajustar las dimensiones. Tu modelo espera (d x N). 
+    # Como es solo 1 registro (N=1), lo convertimos de vector plano a matriz columna (16 x 1)
+    kepler_input = jnp.reshape(kepler_norm, (16, 1))
+    fp_input = jnp.reshape(fp_norm, (16, 1))
+
+    # PASO C: Predecir (Estimate devuelve un arreglo, extraemos el único valor con [0])
+    pred_kepler = log_model.estimate(kepler_input)[0]
+    pred_fp = log_model.estimate(fp_input)[0]
+
+    # Imprimir los resultados
+    print(f"Predicción Kepler-227 b: {pred_kepler} (Esperado: 1)")
+    print(f"Predicción Falso Positivo:  {pred_fp} (Esperado: 0)")

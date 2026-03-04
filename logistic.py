@@ -3,7 +3,7 @@ import jax
 from jax import jit, random
 import jax.numpy as jnp
 from functools import partial
-# test
+import time
 
 
 class logistic:
@@ -15,7 +15,6 @@ class logistic:
         self.method_opt = method_opt
         self.error_gradient = 0.001
         self.key = random.PRNGKey(73)
-        # You need to add some variables
         self.W = None
 
     @staticmethod
@@ -27,7 +26,8 @@ class logistic:
             W is a k-1 x d + 1
             X is a d x N
         """
-        return jnp.exp(W@X)
+        z = jnp.clip(W@X, -500.0, 500.0) # clip data to prevent infinite values
+        return jnp.exp(z)
 
     @staticmethod
     @jit
@@ -40,7 +40,7 @@ class logistic:
         """
         temp = jnp.sum(exTerms, axis=0)
         n = temp.shape[0]
-        return jnp.reshape(1.0+temp, newshape=(1, n))
+        return jnp.reshape(1.0+temp, (1, n))
 
     @staticmethod
     @jit
@@ -63,7 +63,8 @@ class logistic:
         terms = self.logistic_exp(W, X)
         sum_terms = self.logistic_sum(terms)
         matrix = self.logit_matrix(terms, sum_terms)
-        return jnp.sum(jnp.sum(jnp.log(matrix)*Y_hot, axis=0), axis=0)
+        matrix_safe = jnp.clip(matrix, 1e-15, 1.0)
+        return jnp.sum(jnp.sum(jnp.log(matrix_safe)*Y_hot, axis=0), axis=0)
     
     @staticmethod
     def one_hot(Y: jnp):
@@ -115,21 +116,32 @@ class logistic:
         """
         n, m = W.shape 
         self.sh = (n, m)
-        # alpha = 0.5
         Grad = jax.grad(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
         loss = self.model(jnp.ravel(W), X, Y_hot)
         cnt = 0
         while True:
             Hessian = jax.hessian(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
-            W = W - alpha*jnp.reshape((jnp.linalg.inv(Hessian)@Grad), self.sh)
+
+            # prevents singular
+            I = jnp.eye(Hessian.shape[0])
+            Hessian_safe = Hessian + I * 1e-5
+
+            step = jnp.linalg.solve(Hessian_safe, Grad)
+            W = W - alpha*jnp.reshape(step, self.sh)
             Grad =  jax.grad(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
             old_loss = loss
             loss = self.model(jnp.ravel(W), X, Y_hot)
+
             if cnt%30 == 0:
-                print(f'{self.model(jnp.ravel(W), X, Y_hot)}')
+                # print(f'{self.model(jnp.ravel(W), X, Y_hot)}')
+                time.sleep(0.1)
             if  jnp.abs(old_loss - loss) < tol:
                 break
             cnt +=1
+            # emerginci if it tends to infinite
+            if cnt > 2000:
+                print("Reached iteration limit")
+                break
         return W
     
     def estimate_prob(self, X:jnp)->jnp:
@@ -163,3 +175,22 @@ class logistic:
         TP = sum(y_hat == y)
         FP = sum(y_hat != y)
         return (TP/(TP+FP)).tolist()
+    
+    def calculate_metrics(self, y, y_hat):
+        """
+        Calculate Precision, Recall and F1-Score for binary clasification
+        """
+        # Verdaderos Positivos (Predice 1, Realmente es 1)
+        TP = jnp.sum((y_hat == 1) & (y == 1))
+        
+        # Falsos Positivos (Predice 1, Realmente es 0)
+        FP = jnp.sum((y_hat == 1) & (y == 0))
+        
+        # Falsos Negativos (Predice 0, Realmente es 1)
+        FN = jnp.sum((y_hat == 0) & (y == 1))
+        
+        # Usamos jnp.maximum para evitar divisiones por cero
+        precision = TP / jnp.maximum(TP + FP, 1e-9)
+        recall = TP / jnp.maximum(TP + FN, 1e-9)
+        f1_score = 2 * (precision * recall) / jnp.maximum(precision + recall, 1e-9)
+        return precision.tolist(), recall.tolist(), f1_score.tolist()

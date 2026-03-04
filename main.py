@@ -81,9 +81,59 @@ def load_data(csv, seed=73):
 def main():
     X_train, y_train, X_val, y_val, X_test, y_test, scaler_mean, scaler_std = load_data('cumulative.csv')
 
-    print(f"X_train shape: {X_train.shape}")
-    print(f"X_val shape: {X_val.shape}")
-    print(f"y_train shape: {y_train.shape}")
+    log_model = logistic.logistic()
+    lin_model = linear.linear()
+
+    print("="*80)
+    print(" "*30 + "LINEAR MODEL")
+    print("="*80)
+    print('Training lineal model')
+    lin_model.fit(X_train, y_train)
+    print('training complete')
+
+    print('Generating predictions for validation')
+    y_hat_val_lin = lin_model.estimate(X_val)
+    continuous_val = lin_model.estimate_continuous(X_val)
+    format_values = [round(float(v), 2) for v in continuous_val[:15]]
+    print(f"Valor Matemático Crudo: {format_values}")
+    print(f"Predicción del Modelo:  {y_hat_val_lin[:15]}") 
+    print(f"Realidad (Etiquetas):   {y_val[:15]}\n")
+    val_prec_lin, val_rec_lin, val_f1_lin = lin_model.calculate_metrics(y_val, y_hat_val_lin)
+    print("_"*60)
+    print(f"Precision: {val_prec_lin:.4f} | Recall: {val_rec_lin:.4f} | F1-Score: {val_f1_lin:.4f}")
+    
+    print('Generating predictions for test')
+    y_hat_test_lin = lin_model.estimate(X_test)
+    test_prec_lin, test_rec_lin, test_f1_lin = lin_model.calculate_metrics(y_test, y_hat_test_lin)
+    print("_"*60)
+    print(f"Precision: {test_prec_lin:.4f} | Recall: {test_rec_lin:.4f} | F1-Score: {test_f1_lin:.4f}\n")
+
+    print("="*80)
+    print(" "*30 + "LOGISTIC MODEL")
+    print("="*80)
+    print('Training logistic model')
+    log_model.fit(X_train, y_train)
+    print('training complete')
+
+    print('Generating predictions for validation')
+    y_hat_val_log = log_model.estimate(X_val)
+    print(f"Predicción del Modelo: {y_hat_val_log[:15]}")
+    print(f"Realidad (Etiquetas):  {y_val[:15]}")
+
+    precision_val, recall_val, f1_val = log_model.calculate_metrics(y_val, y_hat_val_log)
+    print("_"*60)
+    print(f"Precision: {precision_val:.4f}")
+    print(f"Recall:    {recall_val:.4f}")
+    print(f"F1-Score:  {f1_val:.4f}")
+
+    print('Generating predictions for test')
+    y_hat_test_log = log_model.estimate(X_test)
+    test_precision, test_recall, test_f1 = log_model.calculate_metrics(y_test, y_hat_test_log)
+    print("_"*60)
+    print(f"Precision: {test_precision:.4f}")
+    print(f"Recall:    {test_recall:.4f}")
+    print(f"F1-Score:  {test_f1:.4f}")
+    print("="*60)
 
 
 if __name__ == "__main__":
