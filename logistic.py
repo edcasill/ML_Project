@@ -3,6 +3,7 @@ import jax
 from jax import jit, random
 import jax.numpy as jnp
 from functools import partial
+# test
 
 
 class logistic:
