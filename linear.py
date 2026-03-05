@@ -49,10 +49,12 @@ class linear:
         TP = jnp.sum((y_hat == 1) & (y == 1))
         FP = jnp.sum((y_hat == 1) & (y == 0))
         FN = jnp.sum((y_hat == 0) & (y == 1))
+        TN = jnp.sum((y_hat == 0) & (y == 0))
 
         # jnp.maximum avoid zero division
         precision = TP / jnp.maximum(TP + FP, 1e-9)
         recall = TP / jnp.maximum(TP + FN, 1e-9)
+        accuracy = (TP + TN) / jnp.maximum(TP + TN + FP + FN, 1e-9)
         f1_score = 2 * (precision * recall) / jnp.maximum(precision + recall, 1e-9)
 
-        return precision.tolist(), recall.tolist(), f1_score.tolist()
+        return precision.tolist(), recall.tolist(), accuracy.tolist(), f1_score.tolist()

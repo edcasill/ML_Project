@@ -139,7 +139,7 @@ class logistic:
                 break
             cnt +=1
             # emerginci if it tends to infinite
-            if cnt > 2000:
+            if cnt > 3000:
                 print("Reached iteration limit")
                 break
         return W
@@ -180,17 +180,20 @@ class logistic:
         """
         Calculate Precision, Recall and F1-Score for binary clasification
         """
-        # Verdaderos Positivos (Predice 1, Realmente es 1)
+        # True Positives
         TP = jnp.sum((y_hat == 1) & (y == 1))
         
-        # Falsos Positivos (Predice 1, Realmente es 0)
+        # False positives
         FP = jnp.sum((y_hat == 1) & (y == 0))
         
-        # Falsos Negativos (Predice 0, Realmente es 1)
+        # False Negative
         FN = jnp.sum((y_hat == 0) & (y == 1))
-        
-        # Usamos jnp.maximum para evitar divisiones por cero
+        TN = jnp.sum((y_hat == 0) & (y == 0))
+
+        # jnp.maximum avoid zero division
         precision = TP / jnp.maximum(TP + FP, 1e-9)
         recall = TP / jnp.maximum(TP + FN, 1e-9)
+        accuracy = (TP + TN) / jnp.maximum(TP + TN + FP + FN, 1e-9)
         f1_score = 2 * (precision * recall) / jnp.maximum(precision + recall, 1e-9)
-        return precision.tolist(), recall.tolist(), f1_score.tolist()
+
+        return precision.tolist(), recall.tolist(), accuracy.tolist(), f1_score.tolist()
