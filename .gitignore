@@ -1,0 +1,10 @@
+archive.zip
+.venv
+*.vscode
+*.tmp
+*.png
+*.synctex
+img
+exoplanets_clean.csv
+__pycache__
+mlflow.db

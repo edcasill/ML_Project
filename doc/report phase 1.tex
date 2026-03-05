@@ -1,0 +1,83 @@
+\documentclass[conference, onecolumn]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{captdef}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{anyfontsize}
+\usepackage{enumerate}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{attachfile}
+\author{Edwing Alexis Casillas Valencia\\
+	\today}
+\title{Phase 1 Report - Introduction to Machine Learning}
+%\date{October 7 2025}
+\graphicspath{C:\Users\Narut\OneDrive\Documentos\Maestria\Cuatri 2\Machine_Learning\ML_Project\doc\img}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{gray!10},   % Color de fondo leve
+	commentstyle=\color{green!40!black},
+	keywordstyle=\color{blue},
+	stringstyle=\color{purple},
+	basicstyle=\ttfamily\footnotesize, % Fuente de monoespacio pequeña
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    % Números de línea a la izquierda
+	numbersep=5pt,                   
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+
+\begin{document}
+	
+	\maketitle
+	\thispagestyle{empty}
+	\pagenumbering{arabic}
+	
+	\begin{abstract}
+		Identifying exoplanets from vast astronomical datasets requires robust classification models. This document presents the foundational phase of a machine learning pipeline designed to classify Kepler objects of interest. I implemented two from-scratch mathematical models: a  Linear Classifier and a Logistic Regression model. The dataset underwent rigorous preprocessing and normalization before evaluation. Comparative analysis of the test data reveals that the Logistic model provides superior decision boundaries for this specific binary classification task. Ongoing work includes integrating MLflow for experiment tracking and preparing the models for backend API deployment.
+	\end{abstract}
+	
+	\section*{Proposal}
+	The objective of this project is to develop an exoplanet detection model using observational data from NASA's Kepler Space Telescope. Future iterations of this work aim to expand the model's capabilities to predict the potential habitability of the confirmed exoplanets.
+	
+	You can look the project on my repository \url{https://github.com/edcasill/ML_Project#}
+	\newline
+	
+	The advances I have for this phase, is the implementation of the linear and logistic classification, which predicts if the observed data belongs or not to an exoplanet or another stellar body. In the following image you can see the comparison between the two models, using validation and test data.
+	
+	\begin{center}
+		\includegraphics[scale=0.5]{img/results_p1.png}
+		\captionof{figure}{Linear and Logistic model}
+	\end{center}
+	
+	When analyzing the validation and test results, both models demonstrate similar performance in terms of Precision, Recall, and Accuracy. However, the Logistic Regression model achieves a slightly better F1-Score. This performance gap is expected due to the mathematical nature of the algorithms. The Linear classifier attempts to fit a continuous hyperplane using Least Squares Error (LSE). Consequently, it heavily penalizes predictions that are "too correct" (predicting 1.5 for a clear exoplanet), which distorts the optimal decision boundary. In contrast, the Logistic model applies a sigmoid function to the linear combination, strictly bounding the outputs between 0 and 1. This probabilistic approach is inherently better suited for classification tasks, as it stabilizes the weights and directly improves the F1-score.
+	\newline
+	
+	I used a percentage of 70\% data for training, 15\% for validation and 15\% for test. This was implemented on 3 python files: main.py, linear.py and logistic.py.
+	\begin{itemize}
+		\item \textbf{main.py} loads the dataset, applies normalization (as almost all features are numerical), and splits the data. It also executes the training and evaluation pipelines.
+		
+		\item \textbf{linear.py} implements the linear classification using Ordinary Least Squares (OLS) with a 0.5 decision boundary for positive results (Exoplanets) and less than that for otherwise.
+		
+		\item \textbf{logistic.py} aimplements logistic regression optimized via the Newton-Raphson method, outputting 1 for Exoplanets and 0 for other stellar bodies.
+	\end{itemize}
+	
+	Unfortunately, I couldn't make mlflow works on my project by now, I had some issues to show the data on the GUI, I'm still working on it, but due the date it couldn't be ready; I'm sure that during the next days it's going to be working, ready before the second phase.
+	
+	\begin{center}
+		\includegraphics[scale=0.27]{img/mlflow_ini.png}
+		\captionof{figure}{Issues with mlflow}
+	\end{center}
+
+\end{document}
