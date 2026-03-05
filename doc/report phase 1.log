@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.2)  4 MAR 2026 18:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.19)  4 MAR 2026 22:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **"./report phase 1.tex"
 (report phase 1.tex
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-09-02>
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/ieeetran\IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
@@ -122,7 +122,7 @@ Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@posthook=\toks19
 )
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
-Package: amsmath 2025/07/09 v2.17z AMS math features
+Package: amsmath 2025/06/16 v2.17y AMS math features
 \@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
@@ -186,8 +186,8 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \multlinegap=\skip53
 \multlinetaggap=\skip54
 \mathdisplay@stack=\toks24
-LaTeX Info: Redefining \[ on input line 2950.
-LaTeX Info: Redefining \] on input line 2951.
+LaTeX Info: Redefining \[ on input line 2949.
+LaTeX Info: Redefining \] on input line 2950.
 )
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
@@ -235,7 +235,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box58
 )
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/tools\bm.sty
-Package: bm 2025/10/21 v1.2g Bold Symbol Support (DPC/FMi)
+Package: bm 2023/12/19 v1.2f Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup6
 \symboldletters=\mathgroup7
 \symboldsymbols=\mathgroup8
@@ -301,24 +301,18 @@ Package caption Info: float package is loaded.
 \lst@lineno=\count310
 \lst@maxwidth=\dimen194
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
-File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
 )
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
-File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 \c@lstnumber=\count311
 \lst@skipnumbers=\count312
 \lst@framebox=\box60
 )
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
-File: listings.cfg 2025/11/14 1.11b listings configuration
+File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
-Package: listings 2025/11/14 1.11b (Carsten Heinz)
-==> First Aid for listings.sty no longer applied!
-    Expected:
-        2024/09/23 1.10c (Carsten Heinz)
-    but found:
-        2025/11/14 1.11b (Carsten Heinz)
-    so I'm assuming it got fixed.
+Package: listings 2024/09/23 1.10c (Carsten Heinz)
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 
@@ -498,7 +492,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 (C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
-File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count329
 ) (report phase 1.aux)
 \openout1 = `"report phase 1.aux"'.
@@ -559,6 +553,53 @@ Package hyperref Info: Link coloring OFF on input line 41.
 \@outlinefile=\write3
 \openout3 = `"report phase 1.out"'.
 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
+
+
+(C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 54.
+
+
+(C:\Users\Narut\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 10000) in paragraph at lines 54--56
+
+ []
+
+<img/results_p1.png, id=4, 825.0825pt x 877.2775pt>
+File: img/results_p1.png Graphic file (type png)
+<use img/results_p1.png>
+Package pdftex.def Info: img/results_p1.png  used on input line 60.
+(pdftex.def)             Requested size: 412.54024pt x 438.63768pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 61.
+See the caption package documentation for explanation.
+
+
+
+[1{C:/Users/Narut/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Na
+rut/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 64--66
+
+ []
+
+
+
+[2 <./img/results_p1.png>]
+<img/mlflow_ini.png, id=21, 1844.8925pt x 904.37875pt>
+File: img/mlflow_ini.png Graphic file (type png)
+<use img/mlflow_ini.png>
+Package pdftex.def Info: img/mlflow_ini.png  used on input line 79.
+(pdftex.def)             Requested size: 498.12764pt x 244.18553pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 80.
+See the caption package documentation for explanation.
 
 
 ** Conference Paper **
@@ -571,30 +612,31 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[1{C:/Users/Narut/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Na
-rut/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}]
-(report phase 1.aux)
+
+
+[3 <./img/mlflow_ini.png>] (report phase 1.aux)
  ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `"report phase 1".out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 13981 strings out of 467871
- 223518 string characters out of 5418377
- 636164 words of memory out of 5000000
- 42715 multiletter control sequences out of 15000+600000
- 654856 words of font info for 86 fonts, out of 8000000 for 9000
+ 14077 strings out of 468081
+ 225128 string characters out of 5425788
+ 638127 words of memory out of 5000000
+ 42574 multiletter control sequences out of 15000+600000
+ 661497 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,5n,93p,321b,446s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/Narut/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pf
-b><C:/Users/Narut/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pf
-b>
-Output written on "report phase 1.pdf" (1 page, 23787 bytes).
+ 90i,6n,93p,871b,658s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Narut/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmsy7.pfb><C:/Users/Narut/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/u
+tmb8a.pfb><C:/Users/Narut/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/u
+tmr8a.pfb>
+Output written on "report phase 1.pdf" (3 pages, 206910 bytes).
 PDF statistics:
- 23 PDF objects out of 1000 (max. 8388607)
- 3 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 PDF objects out of 1000 (max. 8388607)
+ 7 named destinations out of 1000 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
