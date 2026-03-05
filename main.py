@@ -109,12 +109,12 @@ def main():
         format_values = [round(float(v), 2) for v in continuous_val[:15]]
 
         # print(f"Decimal values: {format_values}")
-        print(f"Model prediction:  {y_hat_val_lin[:15]}") 
+        print(f"Model prediction:  {y_hat_val_lin[:15]}")
         print(f"Real values:       {y_val[:15]}")
-        
+
         val_prec_lin, val_rec_lin, val_acc_lin, val_f1_lin = lin_model.calculate_metrics(y_val, y_hat_val_lin)
         print("_"*80)
-        print(f"Precision: {val_prec_lin:.4f} | Recall: {val_rec_lin:.4f} | Accuracy: {val_acc_lin:.4f} | F1-Score: {val_f1_lin:.4f}")
+        print(f"Precision: {val_prec_lin:.4f} | Recall: {val_rec_lin:.4f} | Accuracy: {val_acc_lin:.4f} | F1-Score: {val_f1_lin:.4f}")  # noqa
         print("_"*80 + '\n')
 
         # Register validation data
@@ -122,12 +122,12 @@ def main():
         mlflow.log_metric("val_recall", val_rec_lin)
         mlflow.log_metric("val_accuracy", val_acc_lin)
         mlflow.log_metric("val_f1", val_f1_lin)
-        
+
         print('Generating predictions for test')
         y_hat_test_lin = lin_model.estimate(X_test)
         test_prec_lin, test_rec_lin, test_acc_lin, test_f1_lin = lin_model.calculate_metrics(y_test, y_hat_test_lin)
         print("_"*80)
-        print(f"Precision: {test_prec_lin:.4f} | Recall: {test_rec_lin:.4f} | Accuracy: {test_acc_lin:.4f} | F1-Score: {test_f1_lin:.4f}")
+        print(f"Precision: {test_prec_lin:.4f} | Recall: {test_rec_lin:.4f} | Accuracy: {test_acc_lin:.4f} | F1-Score: {test_f1_lin:.4f}")  # noqa
         print("_"*80 + '\n')
 
         # Register test data
@@ -163,7 +163,7 @@ def main():
 
         val_prec_log, val_rec_log, val_acc_log, val_f1_log = log_model.calculate_metrics(y_val, y_hat_val_log)
         print("_"*80)
-        print(f"Precision: {val_prec_log:.4f} | Recall: {val_rec_log:.4f} | Accuracy: {val_acc_log:.4f} | F1-Score: {val_f1_log:.4f}")
+        print(f"Precision: {val_prec_log:.4f} | Recall: {val_rec_log:.4f} | Accuracy: {val_acc_log:.4f} | F1-Score: {val_f1_log:.4f}")  # noqa
         print("_"*80 + '\n')
 
         # Register validation data
@@ -176,7 +176,7 @@ def main():
         y_hat_test_log = log_model.estimate(X_test)
         test_prec_log, test_rec_log, test_acc_log, test_f1_log = log_model.calculate_metrics(y_test, y_hat_test_log)
         print("_"*80)
-        print(f"Precision: {test_prec_log:.4f} | Recall: {test_rec_log:.4f} | Accuracy: {test_acc_log:.4f} | F1-Score: {test_f1_log:.4f}")
+        print(f"Precision: {test_prec_log:.4f} | Recall: {test_rec_log:.4f} | Accuracy: {test_acc_log:.4f} | F1-Score: {test_f1_log:.4f}")  # noqa
         print("_"*80 + '\n')
 
         # Register test data

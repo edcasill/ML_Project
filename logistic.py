@@ -19,23 +19,23 @@ class logistic:
 
     @staticmethod
     @jit
-    def logistic_exp(W:jnp, X:jnp)->jnp:
+    def logistic_exp(W: jnp, X: jnp) -> jnp:
         """
-        Generate all the w^T@x values 
+        Generate all the w^T@x values
         args:
             W is a k-1 x d + 1
             X is a d x N
         """
-        z = jnp.clip(W@X, -500.0, 500.0) # clip data to prevent infinite values
+        z = jnp.clip(W@X, -500.0, 500.0)  # clip data to prevent infinite values
         return jnp.exp(z)
 
     @staticmethod
     @jit
-    def logistic_sum(exTerms: jnp)->jnp:        
+    def logistic_sum(exTerms: jnp) -> jnp:
         """
-        Generate all the w^T@x values 
+        Generate all the w^T@x values
         args:
-            W is a k-1 x d 
+            W is a k-1 x d
             X is a d x N
         """
         temp = jnp.sum(exTerms, axis=0)
@@ -44,18 +44,18 @@ class logistic:
 
     @staticmethod
     @jit
-    def logit_matrix(Terms: jnp, sum_terms: jnp)->jnp:
+    def logit_matrix(Terms: jnp, sum_terms: jnp) -> jnp:
         """
         Generate matrix
         """
         divisor = 1/sum_terms
         n, _ = Terms.shape
-        replicate = jnp.repeat(divisor, repeats=n, axis=0 )
+        replicate = jnp.repeat(divisor, repeats=n, axis=0)
         logits = Terms*replicate
         return jnp.vstack([logits, divisor])
-    
+
     @partial(jit, static_argnums=(0,))
-    def model(self, W:jnp, X:jnp, Y_hot:jnp)->jnp:
+    def model(self, W: jnp, X: jnp, Y_hot: jnp) -> jnp:
         """
         Logistic Model
         """
@@ -64,8 +64,8 @@ class logistic:
         sum_terms = self.logistic_sum(terms)
         matrix = self.logit_matrix(terms, sum_terms)
         matrix_safe = jnp.clip(matrix, 1e-15, 1.0)
-        return jnp.sum(jnp.sum(jnp.log(matrix_safe)*Y_hot, axis=0), axis=0)
-    
+        return jnp.sum(jnp.sum(jnp.log(matrix_safe) * Y_hot, axis=0), axis=0)
+
     @staticmethod
     def one_hot(Y: jnp):
         """
@@ -73,8 +73,8 @@ class logistic:
         """
         numclasses = len(jnp.unique(Y))
         return jnp.transpose(jax.nn.one_hot(Y, num_classes=numclasses))
-    
-    def generate_w(self, k_classes:int, dim:int)->jnp:
+
+    def generate_w(self, k_classes: int, dim: int) -> jnp:
         """
         Use the random generator at Jax to generate a random generator to instanciate
         the augmented values
@@ -84,15 +84,14 @@ class logistic:
         return jnp.array(random.normal(keys[0], (k_classes, dim)))
 
     @staticmethod
-    def augment_x(X: jnp)->jnp:
+    def augment_x(X: jnp) -> jnp:
         """
         Augmenting samples of a dim x N matrix
         """
         N = X.shape[1]
         return jnp.vstack([X, jnp.ones((1, N))])
-     
-   
-    def fit(self, X: jnp, Y:jnp)->None:
+
+    def fit(self, X: jnp, Y: jnp) -> None:
         """
         The fit process
         """
@@ -101,20 +100,20 @@ class logistic:
         dim = X.shape[0]
         W = self.generate_w(nclasses-1, dim)
         Y_hot = self.one_hot(Y)
-        self.W = getattr(self, self.method_opt, lambda W, X, Y_hot: self.error() )(W, X, Y_hot)
-    
+        self.W = getattr(self, self.method_opt, lambda W, X, Y_hot: self.error())(W, X, Y_hot)
+
     @staticmethod
-    def error()->None:
+    def error() -> None:
         """
         Only Print Error
         """
         raise Exception("Opt Method does not exist")
-    
-    def classic_model(self, W:jnp, X:jnp, Y_hot:jnp, alpha:float=1e-2,  tol:float=1e-3)->jnp:
+
+    def classic_model(self, W: jnp, X: jnp, Y_hot: jnp, alpha: float = 1e-2, tol: float = 1e-3) -> jnp:
         """
         The naive version of the logistic regression
         """
-        n, m = W.shape 
+        n, m = W.shape
         self.sh = (n, m)
         Grad = jax.grad(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
         loss = self.model(jnp.ravel(W), X, Y_hot)
@@ -123,28 +122,27 @@ class logistic:
             Hessian = jax.hessian(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
 
             # prevents singular
-            I = jnp.eye(Hessian.shape[0])
-            Hessian_safe = Hessian + I * 1e-5
+            mid_hessian = jnp.eye(Hessian.shape[0])
+            Hessian_safe = Hessian + mid_hessian * 1e-5
 
             step = jnp.linalg.solve(Hessian_safe, Grad)
             W = W - alpha*jnp.reshape(step, self.sh)
-            Grad =  jax.grad(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
+            Grad = jax.grad(self.model, argnums=0)(jnp.ravel(W), X, Y_hot)
             old_loss = loss
             loss = self.model(jnp.ravel(W), X, Y_hot)
 
-            if cnt%30 == 0:
-                # print(f'{self.model(jnp.ravel(W), X, Y_hot)}')
+            if cnt % 30 == 0:
                 time.sleep(0.1)
-            if  jnp.abs(old_loss - loss) < tol:
+            if jnp.abs(old_loss - loss) < tol:
                 break
-            cnt +=1
-            # emerginci if it tends to infinite
+            cnt += 1
+            # emergency if it tends to infinite
             if cnt > 3000:
                 print("Reached iteration limit")
                 break
         return W
-    
-    def estimate_prob(self, X:jnp)->jnp:
+
+    def estimate_prob(self, X: jnp) -> jnp:
         """
         Estimate Probability
         """
@@ -153,8 +151,8 @@ class logistic:
         sum_terms = self.logistic_sum(terms)
         matrix = self.logit_matrix(terms, sum_terms)
         return matrix
-    
-    def estimate(self, X:jnp)->jnp:
+
+    def estimate(self, X: jnp) -> jnp:
         """
         Estimation
         """
@@ -163,7 +161,7 @@ class logistic:
         sum_terms = self.logistic_sum(terms)
         matrix = self.logit_matrix(terms, sum_terms)
         return jnp.argmax(matrix, axis=0)
-    
+
     def precision(self, y, y_hat):
         """
         Precision
@@ -175,17 +173,17 @@ class logistic:
         TP = sum(y_hat == y)
         FP = sum(y_hat != y)
         return (TP/(TP+FP)).tolist()
-    
+
     def calculate_metrics(self, y, y_hat):
         """
         Calculate Precision, Recall and F1-Score for binary clasification
         """
         # True Positives
         TP = jnp.sum((y_hat == 1) & (y == 1))
-        
+
         # False positives
         FP = jnp.sum((y_hat == 1) & (y == 0))
-        
+
         # False Negative
         FN = jnp.sum((y_hat == 0) & (y == 1))
         TN = jnp.sum((y_hat == 0) & (y == 0))
