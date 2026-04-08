@@ -56,5 +56,9 @@ class linear:
         recall = TP / jnp.maximum(TP + FN, 1e-9)
         accuracy = (TP + TN) / jnp.maximum(TP + TN + FP + FN, 1e-9)
         f1_score = 2 * (precision * recall) / jnp.maximum(precision + recall, 1e-9)
+        print(f'TP: {TP}')
+        print(f'TN: {TN}')
+        print(f'FP: {FP}')
+        print(f'FN: {FN}')
 
         return precision.tolist(), recall.tolist(), accuracy.tolist(), f1_score.tolist()
