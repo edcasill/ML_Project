@@ -5,8 +5,10 @@ import jax.numpy as jnp
 import linear
 import logistic
 from MLP_jax import Multilayer_Perceptron_JAX as MPJ
+import classification_tree as tree
 import mlflow
 import matplotlib.pyplot as plt
+import pickle
 
 
 def load_data(csv, seed=73):
@@ -292,6 +294,59 @@ def main():
         # save trained data
         jnp.savez("mlp_params.npz", **jax_result)
         mlflow.log_artifact("mlp_params.npz")
+
+        ##########################################
+    print('\n')
+    print("="*80)
+    print(" "*30 + "DECISION TREE MODEL")
+    print("="*80)
+    with mlflow.start_run(run_name="Decision_Tree_CART"):
+        tree_model = tree.DecisionTree(max_depth=5, min_samples=10)
+        
+        print('Training Decision Tree model...')
+        tree_model.fit(X_train.T, y_train)
+        
+        mlflow.log_param("model_type", "Decision Tree (CART)")
+        mlflow.log_param("max_depth", 5)
+        mlflow.log_param("min_samples", 10)
+
+        # Validation
+        y_hat_val_tree = tree_model.predict(X_val.T)
+        val_prec_tree, val_rec_tree, val_acc_tree, val_f1_tree, val_cm_tree = tree_model.calculate_metrics(y_val, y_hat_val_tree)
+
+        mlflow.log_metric("val_precision", val_prec_tree)
+        mlflow.log_metric("val_recall", val_rec_tree)
+        mlflow.log_metric("val_accuracy", val_acc_tree)
+        mlflow.log_metric("val_f1", val_f1_tree)
+
+        # Test
+        print('Generating predictions for test')
+        y_hat_test_tree = tree_model.predict(X_test.T)
+        test_prec_tree, test_rec_tree, test_acc_tree, test_f1_tree, test_cm_tree = tree_model.calculate_metrics(y_test, y_hat_test_tree)
+
+        mlflow.log_metric("test_precision", test_prec_tree)
+        mlflow.log_metric("test_recall", test_rec_tree)
+        mlflow.log_metric("test_accuracy", test_acc_tree)
+        mlflow.log_metric("test_f1", test_f1_tree)
+
+        # validation
+        fig_val_tree, ax_val_tree = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_val_tree, val_cm_tree, fig_val_tree, "Confusion matrix val - Tree")
+        fig_val_tree.savefig("cm_val_tree.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_val_tree.png")
+        plt.close(fig_val_tree)
+
+        #  Test
+        fig_test_tree, ax_test_tree = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_test_tree, test_cm_tree, fig_test_tree, "Confusion matrix test - Tree")
+        fig_test_tree.savefig("cm_test_tree.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_test_tree.png")
+        plt.close(fig_test_tree)
+
+        # Guardar el árbol como un objeto "pickle" (ya que no son solo matrices de pesos)
+        with open("tree_model.pkl", "wb") as f:
+            pickle.dump(tree_model, f)
+        mlflow.log_artifact("tree_model.pkl")
 
 
 if __name__ == "__main__":
