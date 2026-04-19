@@ -4,6 +4,7 @@ from jax import jit, random
 import jax.numpy as jnp
 from functools import partial
 import time
+import mlflow
 
 
 class logistic:
@@ -133,6 +134,7 @@ class logistic:
 
             if cnt % 30 == 0:
                 time.sleep(0.1)
+                mlflow.log_metric("loss", float(loss), step=cnt)
             if jnp.abs(old_loss - loss) < tol:
                 break
             cnt += 1
@@ -188,6 +190,12 @@ class logistic:
         FN = jnp.sum((y_hat == 0) & (y == 1))
         TN = jnp.sum((y_hat == 0) & (y == 0))
 
+        # confusion matrix
+        cm = jnp.array([
+            [TN, FP],
+            [FN, TP]
+        ])
+
         # jnp.maximum avoid zero division
         precision = TP / jnp.maximum(TP + FP, 1e-9)
         recall = TP / jnp.maximum(TP + FN, 1e-9)
@@ -198,4 +206,4 @@ class logistic:
         print(f'FP: {FP}')
         print(f'FN: {FN}')
 
-        return precision.tolist(), recall.tolist(), accuracy.tolist(), f1_score.tolist()
+        return precision.tolist(), recall.tolist(), accuracy.tolist(), f1_score.tolist(), cm

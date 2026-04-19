@@ -4,7 +4,9 @@ import jax
 import jax.numpy as jnp
 import linear
 import logistic
+from MLP_jax import Multilayer_Perceptron_JAX as MPJ
 import mlflow
+import matplotlib.pyplot as plt
 
 
 def load_data(csv, seed=73):
@@ -79,10 +81,36 @@ def load_data(csv, seed=73):
     return (X_train_scaled.T, y_train, X_val_scaled.T, y_val, X_test_scaled.T, y_test, mean, std)
 
 
+def plot_cm(ax, cm, fig, title):
+    """
+    Plot the confusion matrix
+
+    Args:
+        ax (_type_): _description_
+        cm (_type_): _description_
+        fig (_type_): _description_
+        title (_type_): _description_
+    """
+    im = ax.imshow(cm, interpolation='nearest', cmap='Blues')
+    ax.set_title(title)
+    fig.colorbar(im, ax=ax)
+    tick_marks = jnp.arange(2)
+    ax.set_xticks(tick_marks)
+    ax.set_yticks(tick_marks)
+    ax.set_xlabel('Predicted Label')
+    ax.set_ylabel('Real Label')
+
+    thresh = cm.max() / 2.
+    for i in range(2):
+        for j in range(2):
+            ax.text(j, i, int(cm[i, j]), ha="center", va="center", color="white" if cm[i, j] > thresh else "black")
+
+
 def main():
     X_train, y_train, X_val, y_val, X_test, y_test, scaler_mean, scaler_std = load_data('cumulative.csv')
 
     # configure mlflow
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
     mlflow.set_experiment("NASA_Exoplanet_Classification")
 
     # save normalization data
@@ -112,7 +140,7 @@ def main():
         print(f"Model prediction:  {y_hat_val_lin[:15]}")
         print(f"Real values:       {y_val[:15]}")
 
-        val_prec_lin, val_rec_lin, val_acc_lin, val_f1_lin = lin_model.calculate_metrics(y_val, y_hat_val_lin)
+        val_prec_lin, val_rec_lin, val_acc_lin, val_f1_lin, val_cm_lin = lin_model.calculate_metrics(y_val, y_hat_val_lin)
         print("_"*80)
         print(f"Precision: {val_prec_lin:.4f} | Recall: {val_rec_lin:.4f} | Accuracy: {val_acc_lin:.4f} | F1-Score: {val_f1_lin:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -125,7 +153,7 @@ def main():
 
         print('Generating predictions for test')
         y_hat_test_lin = lin_model.estimate(X_test)
-        test_prec_lin, test_rec_lin, test_acc_lin, test_f1_lin = lin_model.calculate_metrics(y_test, y_hat_test_lin)
+        test_prec_lin, test_rec_lin, test_acc_lin, test_f1_lin, test_cm_lin = lin_model.calculate_metrics(y_test, y_hat_test_lin)
         print("_"*80)
         print(f"Precision: {test_prec_lin:.4f} | Recall: {test_rec_lin:.4f} | Accuracy: {test_acc_lin:.4f} | F1-Score: {test_f1_lin:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -139,6 +167,18 @@ def main():
         # save beta
         jnp.save("linear_beta.npy", jnp.array(lin_model.beta))
         mlflow.log_artifact("linear_beta.npy")
+
+        fig_val_lin, ax_val_lin = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_val_lin, val_cm_lin, fig_val_lin, "Confusion matrix Val - Lineal")
+        fig_val_lin.savefig("cm_val_lineal.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_val_lineal.png")
+        plt.close(fig_val_lin)
+
+        fig_lin, ax_lin = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_lin, test_cm_lin, fig_lin, "Confusion matrix test - Lineal")
+        fig_lin.savefig("cm_test_lineal.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_test_lineal.png")
+        plt.close(fig_lin)
 
     ###################################################################################################
     print('\n')
@@ -161,7 +201,7 @@ def main():
         print(f"Model prediction: {y_hat_val_log[:15]}")
         print(f"Real values:      {y_val[:15]}")
 
-        val_prec_log, val_rec_log, val_acc_log, val_f1_log = log_model.calculate_metrics(y_val, y_hat_val_log)
+        val_prec_log, val_rec_log, val_acc_log, val_f1_log, val_cm_log = log_model.calculate_metrics(y_val, y_hat_val_log)
         print("_"*80)
         print(f"Precision: {val_prec_log:.4f} | Recall: {val_rec_log:.4f} | Accuracy: {val_acc_log:.4f} | F1-Score: {val_f1_log:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -174,7 +214,7 @@ def main():
 
         print('Generating predictions for test')
         y_hat_test_log = log_model.estimate(X_test)
-        test_prec_log, test_rec_log, test_acc_log, test_f1_log = log_model.calculate_metrics(y_test, y_hat_test_log)
+        test_prec_log, test_rec_log, test_acc_log, test_f1_log, test_cm_log = log_model.calculate_metrics(y_test, y_hat_test_log)
         print("_"*80)
         print(f"Precision: {test_prec_log:.4f} | Recall: {test_rec_log:.4f} | Accuracy: {test_acc_log:.4f} | F1-Score: {test_f1_log:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -188,6 +228,70 @@ def main():
         # Save weights W
         jnp.save("logistic_W.npy", jnp.array(log_model.W))
         mlflow.log_artifact("logistic_W.npy")
+
+        fig_val_log, ax_log = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_log, val_cm_log, fig_val_log, "Confusion matrix val - Logistic")
+        fig_val_log.savefig("cm_val_log.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_val_log.png")
+        plt.close(fig_val_log)
+
+        fig_log, ax_log = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_log, test_cm_log, fig_log, "Confusion matrix test - Logistic")
+        fig_log.savefig("cm_test_log.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_test_log.png")
+        plt.close(fig_log)
+    
+    ##########################################
+    print('\n')
+    print("="*80)
+    print(" "*30 + "MLP Autodiff")
+    print("="*80)
+    print('MLP')
+    with mlflow.start_run(run_name="MLP_autodiff"):
+        jax_mlp = MPJ(X_train.T)
+        jax_result, jax_loss_history = jax_mlp.fit_mlp_jax(X_train.T, y_train, 1000, 0.1)
+
+        mlflow.log_param("model_type", "Autodiff")
+        mlflow.log_param("epochs", 1000)
+        mlflow.log_param("learning_rate", 0.1)
+
+        # loss curve
+        for step_num, loss_val in enumerate(jax_loss_history):
+            mlflow.log_metric("loss", float(loss_val), step=step_num)
+
+        print('Generating predictions for val')
+        val_cm_jax, val_p_jax, val_r_jax, val_acc_mlp, val_f1_jax = jax_mlp.get_metrics(X_val.T, y_val)
+
+        # Register validation data
+        mlflow.log_metric("val_precision", val_p_jax)
+        mlflow.log_metric("val_recall", val_r_jax)
+        mlflow.log_metric("val_accuracy", val_acc_mlp)
+        mlflow.log_metric("val_f1", val_f1_jax)
+
+        print('Generating predictions for test')
+        test_cm_jax, test_p_jax, test_r_jax, test_acc_mlp, test_f1_jax = jax_mlp.get_metrics(X_test.T, y_test)
+
+        # Register validation data
+        mlflow.log_metric("test_precision", test_p_jax)
+        mlflow.log_metric("test_recall", test_r_jax)
+        mlflow.log_metric("test_accuracy", test_acc_mlp)
+        mlflow.log_metric("test_f1", test_f1_jax)
+
+        fig_val_mlp, ax_mlp = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_mlp, val_cm_jax, fig_val_mlp, "Confusion matrix val - MLP")
+        fig_val_mlp.savefig("cm_val_mlp.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_val_mlp.png")
+        plt.close(fig_val_mlp)
+
+        fig_mlp, ax_mlp = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_mlp, test_cm_jax, fig_mlp, "Confusion matrix test- MLP")
+        fig_mlp.savefig("cm_test_mlp.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_test_mlp.png")
+        plt.close(fig_mlp)
+
+        # save trained data
+        jnp.savez("mlp_params.npz", **jax_result)
+        mlflow.log_artifact("mlp_params.npz")
 
 
 if __name__ == "__main__":
