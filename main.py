@@ -142,7 +142,7 @@ def main():
         print(f"Model prediction:  {y_hat_val_lin[:15]}")
         print(f"Real values:       {y_val[:15]}")
 
-        val_prec_lin, val_rec_lin, val_acc_lin, val_f1_lin, val_cm_lin = lin_model.calculate_metrics(y_val, y_hat_val_lin)
+        val_prec_lin, val_rec_lin, val_acc_lin, val_f1_lin, val_cm_lin = lin_model.calculate_metrics(y_val, y_hat_val_lin)  # noqa
         print("_"*80)
         print(f"Precision: {val_prec_lin:.4f} | Recall: {val_rec_lin:.4f} | Accuracy: {val_acc_lin:.4f} | F1-Score: {val_f1_lin:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -155,7 +155,7 @@ def main():
 
         print('Generating predictions for test')
         y_hat_test_lin = lin_model.estimate(X_test)
-        test_prec_lin, test_rec_lin, test_acc_lin, test_f1_lin, test_cm_lin = lin_model.calculate_metrics(y_test, y_hat_test_lin)
+        test_prec_lin, test_rec_lin, test_acc_lin, test_f1_lin, test_cm_lin = lin_model.calculate_metrics(y_test, y_hat_test_lin)  # noqa
         print("_"*80)
         print(f"Precision: {test_prec_lin:.4f} | Recall: {test_rec_lin:.4f} | Accuracy: {test_acc_lin:.4f} | F1-Score: {test_f1_lin:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -203,7 +203,7 @@ def main():
         print(f"Model prediction: {y_hat_val_log[:15]}")
         print(f"Real values:      {y_val[:15]}")
 
-        val_prec_log, val_rec_log, val_acc_log, val_f1_log, val_cm_log = log_model.calculate_metrics(y_val, y_hat_val_log)
+        val_prec_log, val_rec_log, val_acc_log, val_f1_log, val_cm_log = log_model.calculate_metrics(y_val, y_hat_val_log)  # noqa
         print("_"*80)
         print(f"Precision: {val_prec_log:.4f} | Recall: {val_rec_log:.4f} | Accuracy: {val_acc_log:.4f} | F1-Score: {val_f1_log:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -216,7 +216,7 @@ def main():
 
         print('Generating predictions for test')
         y_hat_test_log = log_model.estimate(X_test)
-        test_prec_log, test_rec_log, test_acc_log, test_f1_log, test_cm_log = log_model.calculate_metrics(y_test, y_hat_test_log)
+        test_prec_log, test_rec_log, test_acc_log, test_f1_log, test_cm_log = log_model.calculate_metrics(y_test, y_hat_test_log)  # noqa
         print("_"*80)
         print(f"Precision: {test_prec_log:.4f} | Recall: {test_rec_log:.4f} | Accuracy: {test_acc_log:.4f} | F1-Score: {test_f1_log:.4f}")  # noqa
         print("_"*80 + '\n')
@@ -242,7 +242,7 @@ def main():
         fig_log.savefig("cm_test_log.png", bbox_inches='tight')
         mlflow.log_artifact("cm_test_log.png")
         plt.close(fig_log)
-    
+
     ##########################################
     print('\n')
     print("="*80)
@@ -295,24 +295,24 @@ def main():
         jnp.savez("mlp_params.npz", **jax_result)
         mlflow.log_artifact("mlp_params.npz")
 
-        ##########################################
+    ##########################################
     print('\n')
     print("="*80)
     print(" "*30 + "DECISION TREE MODEL")
     print("="*80)
     with mlflow.start_run(run_name="Decision_Tree_CART"):
         tree_model = tree.DecisionTree(max_depth=5, min_samples=10)
-        
+
         print('Training Decision Tree model...')
         tree_model.fit(X_train.T, y_train)
-        
+
         mlflow.log_param("model_type", "Decision Tree (CART)")
         mlflow.log_param("max_depth", 5)
         mlflow.log_param("min_samples", 10)
 
         # Validation
         y_hat_val_tree = tree_model.predict(X_val.T)
-        val_prec_tree, val_rec_tree, val_acc_tree, val_f1_tree, val_cm_tree = tree_model.calculate_metrics(y_val, y_hat_val_tree)
+        val_prec_tree, val_rec_tree, val_acc_tree, val_f1_tree, val_cm_tree = tree_model.calculate_metrics(y_val, y_hat_val_tree)  # noqa
 
         mlflow.log_metric("val_precision", val_prec_tree)
         mlflow.log_metric("val_recall", val_rec_tree)
@@ -322,7 +322,7 @@ def main():
         # Test
         print('Generating predictions for test')
         y_hat_test_tree = tree_model.predict(X_test.T)
-        test_prec_tree, test_rec_tree, test_acc_tree, test_f1_tree, test_cm_tree = tree_model.calculate_metrics(y_test, y_hat_test_tree)
+        test_prec_tree, test_rec_tree, test_acc_tree, test_f1_tree, test_cm_tree = tree_model.calculate_metrics(y_test, y_hat_test_tree)  # noqa
 
         mlflow.log_metric("test_precision", test_prec_tree)
         mlflow.log_metric("test_recall", test_rec_tree)
@@ -343,7 +343,7 @@ def main():
         mlflow.log_artifact("cm_test_tree.png")
         plt.close(fig_test_tree)
 
-        # Guardar el árbol como un objeto "pickle" (ya que no son solo matrices de pesos)
+        # save tree
         with open("tree_model.pkl", "wb") as f:
             pickle.dump(tree_model, f)
         mlflow.log_artifact("tree_model.pkl")

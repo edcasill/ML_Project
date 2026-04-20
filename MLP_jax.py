@@ -17,7 +17,7 @@ class Multilayer_Perceptron_JAX():
         for i in range(len(self.layers) - 1):
             dim_in = self.layers[i]
             dim_out = self.layers[i+1]
-            
+
             # Weights and bias initialization for each hidden layer and the output layer
             self.params[f'W{i+1}'] = jax.random.normal(self.keys[i], (dim_in, dim_out)) * jnp.sqrt(2.0 / dim_in)
             self.params[f'b{i+1}'] = jnp.zeros((1, dim_out))
@@ -37,15 +37,15 @@ class Multilayer_Perceptron_JAX():
         activations_hidden = X
         total_layers = len(params) // 2
 
-        for i in range(1, total_layers): 
+        for i in range(1, total_layers):
             Z_hidden = (activations_hidden @ params[f'W{i}']) + params[f'b{i}']
             activations_hidden = jnp.maximum(0, Z_hidden)
 
         # forward result on output layer
         Z_out = (activations_hidden @ params[f'W{total_layers}']) + params[f'b{total_layers}']
-        y_out = 1 / (1 + jnp.exp(-Z_out)) # sigmoid
+        y_out = 1 / (1 + jnp.exp(-Z_out))  # sigmoid
         return y_out.squeeze()
-    
+
     @staticmethod
     def loss(params, X, Y):
         """
@@ -58,7 +58,7 @@ class Multilayer_Perceptron_JAX():
         # Binary cross entropy
         error = -jnp.mean(Y * jnp.log(predictions) + (1 - Y) * jnp.log(1 - predictions))
         return error
-    
+
     def get_metrics(self, X_test, Y_test):
         """
         Calculate metrics by evaluation of the model
@@ -69,7 +69,7 @@ class Multilayer_Perceptron_JAX():
 
         cm_1d = jnp.bincount(Y_test * num_classes + y_pred, length=num_classes**2)
         cm = cm_1d.reshape((num_classes, num_classes))
-        
+
         TN = cm[0, 0]
         FP = cm[0, 1]
         FN = cm[1, 0]
@@ -79,9 +79,9 @@ class Multilayer_Perceptron_JAX():
         recall = TP / (TP + FN + epsilon)
         accuracy = (TP + TN) / jnp.maximum(TP + TN + FP + FN, 1e-9)
         f1 = 2 * (precision * recall) / (precision + recall + epsilon)
-        
+
         return cm, precision, recall, accuracy, f1
-    
+
     def fit_mlp_jax(self, X, Y, epochs, learning_rate):
         """
         Learning process of the MLP

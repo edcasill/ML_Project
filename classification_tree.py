@@ -1,5 +1,6 @@
 import jax.numpy as jnp
 
+
 class Node:
     def __init__(self, feature=None, threshold=None, left=None, right=None, value=None):
         self.feature = feature
@@ -7,6 +8,7 @@ class Node:
         self.left = left
         self.right = right
         self.value = value
+
 
 class DecisionTree:
     """
@@ -16,14 +18,14 @@ class DecisionTree:
         self.max_depth = max_depth
         self.min_samples = min_samples
         self.root = None
-        self.num_classes = 2 
+        self.num_classes = 2
 
     def entropy(self, y):
         counts = jnp.bincount(y, length=self.num_classes)
         probs = counts / len(y)
-        probs = probs[probs > 0] # Evitar log(0)
+        probs = probs[probs > 0]  # Avoid log(0)
         return -jnp.sum(probs * jnp.log2(probs))
-    
+
     def best_split(self, X, y):
         best_gain = -1
         split_idx, split_thresh = None, None
@@ -34,7 +36,7 @@ class DecisionTree:
             threshold = jnp.mean(X[:, feature])
             left_mask = X[:, feature] <= threshold
             right_mask = ~left_mask
-            
+
             if not jnp.any(left_mask) or not jnp.any(right_mask):
                 continue
 
@@ -61,10 +63,10 @@ class DecisionTree:
 
         if feature is None:
             return Node(value=most_common)
-        
+
         left_mask = X[:, feature] <= threshold
         right_mask = ~left_mask
-        
+
         left = self.build_tree(X[left_mask], y[left_mask], depth + 1)
         right = self.build_tree(X[right_mask], y[right_mask], depth + 1)
 
@@ -89,14 +91,14 @@ class DecisionTree:
         """
         cm_1d = jnp.bincount(y_true * self.num_classes + y_pred, length=self.num_classes**2)
         cm = cm_1d.reshape((self.num_classes, self.num_classes))
-        
+
         TN, FP = cm[0, 0], cm[0, 1]
         FN, TP = cm[1, 0], cm[1, 1]
-        
+
         epsilon = 1e-7
         precision = TP / (TP + FP + epsilon)
         recall = TP / (TP + FN + epsilon)
         accuracy = (TP + TN) / (TP + TN + FP + FN + epsilon)
         f1 = 2 * (precision * recall) / (precision + recall + epsilon)
-        
+
         return float(precision), float(recall), float(accuracy), float(f1), cm
