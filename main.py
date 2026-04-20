@@ -2,13 +2,16 @@ import os
 import pandas as pd
 import jax
 import jax.numpy as jnp
+import mlflow
+import matplotlib.pyplot as plt
+import pickle
 import linear
 import logistic
 from MLP_jax import Multilayer_Perceptron_JAX as MPJ
 import classification_tree as tree
-import mlflow
-import matplotlib.pyplot as plt
-import pickle
+import em_algorithm as em
+import naive_bayes as nb
+# EM algorithm and Naive-Bayes as mixture model
 
 
 def load_data(csv, seed=73):
@@ -119,6 +122,7 @@ def main():
     jnp.save("scaler_mean.npy", jnp.array(scaler_mean))
     jnp.save("scaler_std.npy", jnp.array(scaler_std))
 
+    # ________________  LINEAR ________________
     print("="*80)
     print(" "*30 + "LINEAR MODEL")
     print("="*80)
@@ -182,7 +186,7 @@ def main():
         mlflow.log_artifact("cm_test_lineal.png")
         plt.close(fig_lin)
 
-    ###################################################################################################
+    # ________________  LOGISTIC  ________________
     print('\n')
     print("="*80)
     print(" "*30 + "LOGISTIC MODEL")
@@ -243,7 +247,7 @@ def main():
         mlflow.log_artifact("cm_test_log.png")
         plt.close(fig_log)
 
-    ##########################################
+    # ________________  MLP  ________________
     print('\n')
     print("="*80)
     print(" "*30 + "MLP Autodiff")
@@ -295,7 +299,7 @@ def main():
         jnp.savez("mlp_params.npz", **jax_result)
         mlflow.log_artifact("mlp_params.npz")
 
-    ##########################################
+    # ________________  Decision tree  ________________
     print('\n')
     print("="*80)
     print(" "*30 + "DECISION TREE MODEL")
@@ -347,6 +351,88 @@ def main():
         with open("tree_model.pkl", "wb") as f:
             pickle.dump(tree_model, f)
         mlflow.log_artifact("tree_model.pkl")
+
+    # ________________ Mixture Model  ________________
+    print('\n')
+    print("="*80)
+    print(" "*30 + "MIXTURE MODEL (EM & NB)")
+    print("="*80)
+    with mlflow.start_run(run_name="Mixture_Model_EM_NB"):
+        print('Training EM algorithm to find clusters...')
+        # Initialice and train Expectation-Maximization
+        em_model = em.em_algorithm(seed=73)
+        # Use X_train.T for a vector form (N, d)
+        em_model.fit_em(X_train.T, iterations=100, tolerance=1e-4, n_init=7)
+        print('EM training complete\n')
+
+        mlflow.log_param("model_type", "Mixture_Model_EM_NB")
+        mlflow.log_param("em_iterations", 100)
+        mlflow.log_param("em_tolerance", 1e-4)
+
+        # VALIDATION
+        print('Generating predictions for validation')
+        nb_val = nb.naive_bayes(em_model.pi, em_model.mu, em_model.sigma, X_val.T)
+        nb_val.model()  # generate self.y_pred
+        y_hat_val_em = nb_val.y_pred
+
+        # Extract metrics
+        val_prec_em, val_rec_em, val_acc_em, val_f1_em = nb_val.calculate_metrics(y_val, y_hat_val_em)
+
+        # Cconfusion matrix
+        val_cm_em = jnp.array([
+            [jnp.sum((y_hat_val_em == 0) & (y_val == 0)),
+             jnp.sum((y_hat_val_em == 1) & (y_val == 0))],
+            [jnp.sum((y_hat_val_em == 0) & (y_val == 1)),
+             jnp.sum((y_hat_val_em == 1) & (y_val == 1))]])
+
+        print("_"*80)
+        print(f"Precision: {val_prec_em:.4f} | Recall: {val_rec_em:.4f} | Accuracy: {val_acc_em:.4f} | F1-Score: {val_f1_em:.4f}")  # noqa
+        print("_"*80 + '\n')
+
+        mlflow.log_metric("val_precision", val_prec_em)
+        mlflow.log_metric("val_recall", val_rec_em)
+        mlflow.log_metric("val_accuracy", val_acc_em)
+        mlflow.log_metric("val_f1", val_f1_em)
+
+        # TEST
+        print('Generating predictions for test')
+        nb_test = nb.naive_bayes(em_model.pi, em_model.mu, em_model.sigma, X_test.T)
+        nb_test.model()
+        y_hat_test_em = nb_test.y_pred
+
+        test_prec_em, test_rec_em, test_acc_em, test_f1_em = nb_test.calculate_metrics(y_test, y_hat_test_em)
+
+        test_cm_em = jnp.array([
+            [jnp.sum((y_hat_test_em == 0) & (y_test == 0)),
+             jnp.sum((y_hat_test_em == 1) & (y_test == 0))],
+            [jnp.sum((y_hat_test_em == 0) & (y_test == 1)),
+             jnp.sum((y_hat_test_em == 1) & (y_test == 1))]])
+
+        print("_"*80)
+        print(f"Precision: {test_prec_em:.4f} | Recall: {test_rec_em:.4f} | Accuracy: {test_acc_em:.4f} | F1-Score: {test_f1_em:.4f}")  # noqa
+        print("_"*80 + '\n')
+
+        mlflow.log_metric("test_precision", test_prec_em)
+        mlflow.log_metric("test_recall", test_rec_em)
+        mlflow.log_metric("test_accuracy", test_acc_em)
+        mlflow.log_metric("test_f1", test_f1_em)
+
+        # ARTIFACTS
+        # save parameters learned by em algorithm
+        jnp.savez("em_parameters.npz", pi=em_model.pi, mu=em_model.mu, sigma=em_model.sigma)
+        mlflow.log_artifact("em_parameters.npz")
+
+        fig_val_em, ax_val_em = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_val_em, val_cm_em, fig_val_em, "Confusion matrix val - EM+NB")
+        fig_val_em.savefig("cm_val_em.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_val_em.png")
+        plt.close(fig_val_em)
+
+        fig_test_em, ax_test_em = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_test_em, test_cm_em, fig_test_em, "Confusion matrix test - EM+NB")
+        fig_test_em.savefig("cm_test_em.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_test_em.png")
+        plt.close(fig_test_em)
 
 
 if __name__ == "__main__":
