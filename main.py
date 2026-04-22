@@ -11,6 +11,7 @@ from MLP_jax import Multilayer_Perceptron_JAX as MPJ
 import classification_tree as tree
 import em_algorithm as em
 import naive_bayes as nb
+import adaboost as ab
 # EM algorithm and Naive-Bayes as mixture model
 
 
@@ -433,6 +434,79 @@ def main():
         fig_test_em.savefig("cm_test_em.png", bbox_inches='tight')
         mlflow.log_artifact("cm_test_em.png")
         plt.close(fig_test_em)
+
+    # ________________ Mixture Model  ________________
+    print('\n')
+    print("="*80)
+    print(" "*30 + "ADABOOST MODEL")
+    print("="*80)
+    with mlflow.start_run(run_name="AdaBoost_Stumps"):
+        boost_model = ab.AdaBoost(M=50, seed=73)
+
+        print('Training AdaBoost model...')
+        boost_model.fit(X_train.T, y_train)
+
+        mlflow.log_param("model_type", "AdaBoost (M1)")
+        mlflow.log_param("n_estimators", 50)
+        mlflow.log_param("base_estimator", "Decision Stump")
+
+        # Validation
+        print('Generating predictions for validation')
+        y_hat_val_boost = boost_model.predict(X_val.T)
+        val_prec_bst, val_rec_bst, val_acc_bst, val_f1_bst = boost_model.calculate_metrics(y_val, y_hat_val_boost)[:4]
+        
+        # Confusion matrix
+        val_cm_ab = jnp.array([
+            [jnp.sum((y_hat_val_boost == 0) & (y_val == 0)), jnp.sum((y_hat_val_boost == 1) & (y_val == 0))],
+            [jnp.sum((y_hat_val_boost == 0) & (y_val == 1)), jnp.sum((y_hat_val_boost == 1) & (y_val == 1))]
+        ])
+
+        print("_"*80)
+        print(f"Precision: {val_prec_bst:.4f} | Recall: {val_rec_bst:.4f} | Accuracy: {val_acc_bst:.4f} | F1-Score: {val_f1_bst:.4f}")
+        print("_"*80 + '\n')
+
+        mlflow.log_metric("val_precision", val_prec_bst)
+        mlflow.log_metric("val_recall", val_rec_bst)
+        mlflow.log_metric("val_accuracy", val_acc_bst)
+        mlflow.log_metric("val_f1", val_f1_bst)
+
+        # Test
+        print('Generating predictions for test')
+
+        y_hat_test_boost = boost_model.predict(X_val.T)
+        test_prec_bst, test_rec_bst, test_acc_bst, test_f1_bst = boost_model.calculate_metrics(y_test, y_hat_test_boost)[:4]
+        
+        # Confusion matrix
+        test_cm_ab = jnp.array([
+            [jnp.sum((y_hat_test_boost == 0) & (y_test == 0)), jnp.sum((y_hat_test_boost == 1) & (y_test == 0))],
+            [jnp.sum((y_hat_test_boost == 0) & (y_test == 1)), jnp.sum((y_hat_test_boost == 1) & (y_test == 1))]
+        ])
+
+        print("_"*80)
+        print(f"Precision: {test_prec_bst:.4f} | Recall: {test_rec_bst:.4f} | Accuracy: {test_acc_bst:.4f} | F1-Score: {test_f1_bst:.4f}")
+        print("_"*80 + '\n')
+
+        mlflow.log_metric("val_precision", test_prec_bst)
+        mlflow.log_metric("val_recall", test_rec_bst)
+        mlflow.log_metric("val_accuracy", test_acc_bst)
+        mlflow.log_metric("val_f1", test_f1_bst)
+
+        # ARTIFACTS
+        # save parameters learned by em algorithm
+        jnp.savez("ab_parameters.npz", pi=boost_model.pi, mu=boost_model.mu, sigma=boost_model.sigma)
+        mlflow.log_artifact("ab_parameters.npz")
+
+        fig_val_ab, ax_val_ab = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_val_ab, val_cm_ab, fig_val_ab, "Confusion matrix val - AdaBoost")
+        fig_val_ab.savefig("cm_val_ab.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_val_ab.png")
+        plt.close(fig_val_ab)
+
+        fig_test_ab, ax_test_ab = plt.subplots(figsize=(6, 5))
+        plot_cm(ax_test_ab, test_cm_ab, fig_test_ab, "Confusion matrix test - AdaBoost")
+        fig_test_ab.savefig("cm_test_ab.png", bbox_inches='tight')
+        mlflow.log_artifact("cm_test_ab.png")
+        plt.close(fig_test_ab)
 
 
 if __name__ == "__main__":
