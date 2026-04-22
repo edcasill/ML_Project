@@ -1,0 +1,226 @@
+================================================================================
+                              LINEAR MODEL
+================================================================================
+Training lineal model
+training complete
+
+Generating predictions for validation
+Model prediction:  [1 0 1 1 1 0 1 0 1 1 0 1 0 0 0]
+Real values:       [1 1 1 1 1 0 1 1 0 1 0 1 0 0 0]
+TP: 593
+TN: 417
+FP: 232
+FN: 100
+________________________________________________________________________________
+Precision: 0.7188 | Recall: 0.8557 | Accuracy: 0.7526 | F1-Score: 0.7813
+________________________________________________________________________________
+
+Generating predictions for test
+TP: 532
+TN: 487
+FP: 217
+FN: 106
+________________________________________________________________________________
+Precision: 0.7103 | Recall: 0.8339 | Accuracy: 0.7593 | F1-Score: 0.7671
+________________________________________________________________________________
+
+
+
+================================================================================
+                              LOGISTIC MODEL
+================================================================================
+Training logistic model
+Reached iteration limit
+training complete
+
+Generating predictions for validation
+Model prediction: [1 0 1 1 1 0 1 0 1 1 0 1 0 0 0]
+Real values:      [1 1 1 1 1 0 1 1 0 1 0 1 0 0 0]
+TP: 597
+TN: 461
+FP: 188
+FN: 96
+________________________________________________________________________________
+Precision: 0.7605 | Recall: 0.8615 | Accuracy: 0.7884 | F1-Score: 0.8078
+________________________________________________________________________________
+
+Generating predictions for test
+TP: 539
+TN: 518
+FP: 186
+FN: 99
+________________________________________________________________________________
+Precision: 0.7434 | Recall: 0.8448 | Accuracy: 0.7876 | F1-Score: 0.7909
+________________________________________________________________________________
+
+
+
+================================================================================
+                              MLP Autodiff
+================================================================================
+MLP
+Epoch 0 | Precissionn: 0.5656 | Loss: 0.7299
+Epoch 10 | Precissionn: 0.7109 | Loss: 0.5770
+Epoch 20 | Precissionn: 0.7502 | Loss: 0.5405
+Epoch 30 | Precissionn: 0.7585 | Loss: 0.5207
+Epoch 40 | Precissionn: 0.7678 | Loss: 0.5081
+Epoch 50 | Precissionn: 0.7706 | Loss: 0.4991
+Epoch 60 | Precissionn: 0.7761 | Loss: 0.4923
+Epoch 70 | Precissionn: 0.7791 | Loss: 0.4871
+Epoch 80 | Precissionn: 0.7826 | Loss: 0.4828
+Epoch 90 | Precissionn: 0.7845 | Loss: 0.4792
+Epoch 100 | Precissionn: 0.7855 | Loss: 0.4762
+Epoch 110 | Precissionn: 0.7871 | Loss: 0.4735
+Epoch 120 | Precissionn: 0.7890 | Loss: 0.4710
+Epoch 130 | Precissionn: 0.7906 | Loss: 0.4688
+Epoch 140 | Precissionn: 0.7932 | Loss: 0.4667
+Epoch 150 | Precissionn: 0.7936 | Loss: 0.4648
+Epoch 160 | Precissionn: 0.7957 | Loss: 0.4629
+Epoch 170 | Precissionn: 0.7960 | Loss: 0.4611
+Epoch 180 | Precissionn: 0.7967 | Loss: 0.4594
+Epoch 190 | Precissionn: 0.7965 | Loss: 0.4578
+Epoch 200 | Precissionn: 0.7975 | Loss: 0.4562
+Epoch 210 | Precissionn: 0.7984 | Loss: 0.4546
+Epoch 220 | Precissionn: 0.7999 | Loss: 0.4530
+Epoch 230 | Precissionn: 0.8008 | Loss: 0.4515
+Epoch 240 | Precissionn: 0.8021 | Loss: 0.4501
+Epoch 250 | Precissionn: 0.8026 | Loss: 0.4486
+Epoch 260 | Precissionn: 0.8039 | Loss: 0.4472
+Epoch 270 | Precissionn: 0.8039 | Loss: 0.4458
+Epoch 280 | Precissionn: 0.8053 | Loss: 0.4445
+Epoch 290 | Precissionn: 0.8058 | Loss: 0.4432
+Epoch 300 | Precissionn: 0.8066 | Loss: 0.4419
+Epoch 310 | Precissionn: 0.8067 | Loss: 0.4405
+Epoch 320 | Precissionn: 0.8075 | Loss: 0.4392
+Epoch 330 | Precissionn: 0.8090 | Loss: 0.4379
+Epoch 340 | Precissionn: 0.8090 | Loss: 0.4367
+Epoch 350 | Precissionn: 0.8095 | Loss: 0.4354
+Epoch 360 | Precissionn: 0.8096 | Loss: 0.4342
+Epoch 370 | Precissionn: 0.8098 | Loss: 0.4330
+Epoch 380 | Precissionn: 0.8103 | Loss: 0.4318
+Epoch 390 | Precissionn: 0.8109 | Loss: 0.4306
+Epoch 400 | Precissionn: 0.8117 | Loss: 0.4294
+Epoch 410 | Precissionn: 0.8119 | Loss: 0.4283
+Epoch 420 | Precissionn: 0.8119 | Loss: 0.4272
+Epoch 430 | Precissionn: 0.8119 | Loss: 0.4260
+Epoch 440 | Precissionn: 0.8126 | Loss: 0.4249
+Epoch 450 | Precissionn: 0.8130 | Loss: 0.4238
+Epoch 460 | Precissionn: 0.8133 | Loss: 0.4227
+Epoch 470 | Precissionn: 0.8141 | Loss: 0.4216
+Epoch 480 | Precissionn: 0.8142 | Loss: 0.4206
+Epoch 490 | Precissionn: 0.8152 | Loss: 0.4195
+Epoch 500 | Precissionn: 0.8158 | Loss: 0.4185
+Epoch 510 | Precissionn: 0.8162 | Loss: 0.4175
+Epoch 520 | Precissionn: 0.8173 | Loss: 0.4165
+Epoch 530 | Precissionn: 0.8179 | Loss: 0.4155
+Epoch 540 | Precissionn: 0.8184 | Loss: 0.4146
+Epoch 550 | Precissionn: 0.8186 | Loss: 0.4136
+Epoch 560 | Precissionn: 0.8186 | Loss: 0.4126
+Epoch 570 | Precissionn: 0.8198 | Loss: 0.4117
+Epoch 580 | Precissionn: 0.8198 | Loss: 0.4108
+Epoch 590 | Precissionn: 0.8203 | Loss: 0.4099
+Epoch 600 | Precissionn: 0.8198 | Loss: 0.4090
+Epoch 610 | Precissionn: 0.8200 | Loss: 0.4081
+Epoch 620 | Precissionn: 0.8202 | Loss: 0.4073
+Epoch 630 | Precissionn: 0.8216 | Loss: 0.4064
+Epoch 640 | Precissionn: 0.8222 | Loss: 0.4056
+Epoch 650 | Precissionn: 0.8234 | Loss: 0.4048
+Epoch 660 | Precissionn: 0.8240 | Loss: 0.4040
+Epoch 670 | Precissionn: 0.8238 | Loss: 0.4032
+Epoch 680 | Precissionn: 0.8237 | Loss: 0.4024
+Epoch 690 | Precissionn: 0.8230 | Loss: 0.4016
+Epoch 700 | Precissionn: 0.8234 | Loss: 0.4009
+Epoch 710 | Precissionn: 0.8235 | Loss: 0.4001
+Epoch 720 | Precissionn: 0.8240 | Loss: 0.3994
+Epoch 730 | Precissionn: 0.8235 | Loss: 0.3987
+Epoch 740 | Precissionn: 0.8237 | Loss: 0.3980
+Epoch 750 | Precissionn: 0.8245 | Loss: 0.3973
+Epoch 760 | Precissionn: 0.8253 | Loss: 0.3966
+Epoch 770 | Precissionn: 0.8259 | Loss: 0.3959
+Epoch 780 | Precissionn: 0.8265 | Loss: 0.3952
+Epoch 790 | Precissionn: 0.8269 | Loss: 0.3945
+Epoch 800 | Precissionn: 0.8273 | Loss: 0.3939
+Epoch 810 | Precissionn: 0.8277 | Loss: 0.3932
+Epoch 820 | Precissionn: 0.8278 | Loss: 0.3926
+Epoch 830 | Precissionn: 0.8280 | Loss: 0.3919
+Epoch 840 | Precissionn: 0.8283 | Loss: 0.3913
+Epoch 850 | Precissionn: 0.8291 | Loss: 0.3906
+Epoch 860 | Precissionn: 0.8291 | Loss: 0.3900
+Epoch 870 | Precissionn: 0.8293 | Loss: 0.3894
+Epoch 880 | Precissionn: 0.8293 | Loss: 0.3888
+Epoch 890 | Precissionn: 0.8302 | Loss: 0.3882
+Epoch 900 | Precissionn: 0.8307 | Loss: 0.3875
+Epoch 910 | Precissionn: 0.8310 | Loss: 0.3869
+Epoch 920 | Precissionn: 0.8313 | Loss: 0.3863
+Epoch 930 | Precissionn: 0.8318 | Loss: 0.3857
+Epoch 940 | Precissionn: 0.8326 | Loss: 0.3851
+Epoch 950 | Precissionn: 0.8337 | Loss: 0.3845
+Epoch 960 | Precissionn: 0.8339 | Loss: 0.3839
+Epoch 970 | Precissionn: 0.8352 | Loss: 0.3833
+Epoch 980 | Precissionn: 0.8352 | Loss: 0.3827
+Epoch 990 | Precissionn: 0.8356 | Loss: 0.3821
+Generating predictions for val
+Generating predictions for test
+
+
+================================================================================
+                              DECISION TREE MODEL
+================================================================================
+Training Decision Tree model...
+________________________________________________________________________________
+Precision: 0.7709 | Recall: 0.8644 | Accuracy: 0.7973 | F1-Score: 0.8150
+Confusion Matrix:
+[[471 178]
+ [ 94 599]]
+________________________________________________________________________________
+
+Generating predictions for test
+________________________________________________________________________________
+Precision: 0.7325 | Recall: 0.8025 | Accuracy: 0.7668 | F1-Score: 0.7659
+Confusion Matrix:
+[[517 187]
+ [126 512]]
+________________________________________________________________________________
+
+
+
+================================================================================
+                              MIXTURE MODEL (EM & NB)
+================================================================================
+Training EM algorithm to find clusters...
+Convergence reach at iteration 28 | Log-Likelihood: -75039.4922
+Convergence reach at iteration 30 | Log-Likelihood: -64745.5625
+Convergence reach at iteration 39 | Log-Likelihood: -46258.1719
+Convergence reach at iteration 39 | Log-Likelihood: -18055.2324
+Convergence reach at iteration 73 | Log-Likelihood: -17793.3867
+Convergence reach at iteration 77 | Log-Likelihood: -17793.3906
+EM training complete
+
+Generating predictions for validation
+________________________________________________________________________________
+Precision: 0.1689 | Recall: 0.0924 | Accuracy: 0.2966 | F1-Score: 0.1194
+________________________________________________________________________________
+
+Generating predictions for test
+________________________________________________________________________________
+Precision: 0.1624 | Recall: 0.1003 | Accuracy: 0.3264 | F1-Score: 0.1240
+________________________________________________________________________________
+
+
+
+================================================================================
+                              ADABOOST MODEL
+================================================================================
+Training AdaBoost model...
+Generating predictions for validation
+________________________________________________________________________________
+Precision: 0.7347 | Recall: 0.7633 | Accuracy: 0.7355 | F1-Score: 0.7488
+________________________________________________________________________________
+
+Generating predictions for test
+________________________________________________________________________________
+Precision: 0.4764 | Recall: 0.5376 | Accuracy: 0.4993 | F1-Score: 0.5052
+________________________________________________________________________________
+
+(.venv) barry@DEDALO:~/Documentos/Machine_Learning/ML_Project$ 
+
