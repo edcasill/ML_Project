@@ -1,0 +1,48 @@
+[MFLOG|0|2026-04-22T06:15:22.292882Z|runtime|1ef701ea-dc85-4b8f-8479-fc515578dea2]E0422 00:15:22.292822   44851 cuda_blas.cc:196] failed to create cublas handle: the resource allocation failed
+[MFLOG|0|2026-04-22T06:15:22.682371Z|runtime|493c5515-101b-4636-a059-dd608deac869]E0422 00:15:22.292835   44851 cuda_blas.cc:199] Failure to initialize cublas may be due to OOM (cublas needs some free memory when you initialize it, and your deep-learning framework may have preallocated more than its fair share), or may be because this binary was not built with support for the GPU in your machine.
+[MFLOG|0|2026-04-22T06:15:22.682539Z|runtime|6d6c73a3-9fad-45a3-b903-ce3386b42ef5]W0422 00:15:22.682304   44851 autotuner.cc:531] No reference output found even though buffer checking was requested while autotuning
+[MFLOG|0|2026-04-22T06:15:22.987256Z|runtime|1d9bf6c3-5568-49f2-b1d9-be2cd33f8bad]E0422 00:15:22.987200   44851 pjrt_stream_executor_client.cc:2111] Execution of replica 0 failed: INTERNAL: jaxlib/gpu/solver_handle_pool.cc:37: operation gpusolverDnCreate(&handle) failed: cuSolver internal error
+[MFLOG|0|2026-04-22T06:15:22.989239Z|runtime|2d2f7ff0-d9a8-4696-815d-d2c307641cda]<flow KeplerFlow step train_discriminative> failed:
+[MFLOG|0|2026-04-22T06:15:22.994386Z|runtime|0e136251-d231-433c-9bd9-0c809ab8f7da]    Internal error
+[MFLOG|0|2026-04-22T06:15:22.994915Z|runtime|5883549e-e2a0-4be8-8132-f535568da285]Traceback (most recent call last):
+[MFLOG|0|2026-04-22T06:15:22.994986Z|runtime|dfdbb136-faba-4785-ae18-f9b507a81715]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli.py", line 727, in main
+[MFLOG|0|2026-04-22T06:15:22.995021Z|runtime|fd17f16e-76bf-4330-845e-f0189f4d9ba8]    start(auto_envvar_prefix="METAFLOW", obj=state)
+[MFLOG|0|2026-04-22T06:15:22.995050Z|runtime|e2625437-857c-4f32-a28f-0265c12636c7]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 829, in __call__
+[MFLOG|0|2026-04-22T06:15:22.995078Z|runtime|f98027f6-9e2b-438f-8135-d4c9ded805af]    return self.main(args, kwargs)
+[MFLOG|0|2026-04-22T06:15:22.995104Z|runtime|a24d4728-2a96-4c9f-a1a5-0f39ec014778]           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:22.995128Z|runtime|cfe220a2-8d8f-41c4-91d5-14df8ed1975b]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 782, in main
+[MFLOG|0|2026-04-22T06:15:22.995151Z|runtime|c3b5d634-823b-4df5-a1cb-93147bc80e3c]    rv = self.invoke(ctx)
+[MFLOG|0|2026-04-22T06:15:22.995175Z|runtime|feee13f4-95ed-4463-aec2-19ecd512a334]         ^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:22.995198Z|runtime|264135ed-9483-4693-a4ed-d7567fdd641d]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli_components/utils.py", line 69, in invoke
+[MFLOG|0|2026-04-22T06:15:22.995226Z|runtime|ce3d82c6-ab53-4bfe-a763-4eab7ef43794]    return _process_result(sub_ctx.command.invoke(sub_ctx))
+[MFLOG|0|2026-04-22T06:15:22.995250Z|runtime|1224d347-def9-406a-94a3-2927ba181680]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:22.995273Z|runtime|e91a37e5-882e-496c-b48b-9ca4da8be89c]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 1066, in invoke
+[MFLOG|0|2026-04-22T06:15:22.995297Z|runtime|3ae3b5bd-8e49-45f2-b532-a525b789bf79]    return ctx.invoke(self.callback, ctx.params)
+[MFLOG|0|2026-04-22T06:15:23.366547Z|runtime|a41aa01f-6a39-4366-b486-c5145388eb67]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:23.366675Z|runtime|e35a140f-37f7-47a6-be52-13fd771bfa08]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 610, in invoke
+[MFLOG|0|2026-04-22T06:15:23.366712Z|runtime|47bb1052-ce22-45bb-8403-3a2f27594b6a]    return callback(args, kwargs)
+[MFLOG|0|2026-04-22T06:15:23.366739Z|runtime|b9b01b89-9d90-4435-8823-26220be2261c]           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:23.366763Z|runtime|09cc5296-91ea-4c2e-87f4-f27bd462f602]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/tracing/__init__.py", line 27, in wrapper_func
+[MFLOG|0|2026-04-22T06:15:23.366788Z|runtime|1e0a1dcd-a146-42ea-be17-a04c4bb62013]    return func(args, kwargs)
+[MFLOG|0|2026-04-22T06:15:23.366820Z|runtime|67754849-a22a-4931-9cfa-18d8aa6fb20f]           ^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:23.366844Z|runtime|698f456f-6abf-41bc-a9a1-4b296cc22fd9]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/decorators.py", line 21, in new_func
+[MFLOG|0|2026-04-22T06:15:23.366868Z|runtime|36a264ff-7736-4a09-bb0c-6879ebff46fa]    return f(get_current_context(), args, kwargs)
+[MFLOG|0|2026-04-22T06:15:23.366891Z|runtime|e6a37ce9-76d0-4a43-bced-4f37d92921cc]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:23.366912Z|runtime|771cc26f-d606-4076-ac3d-1e269b13c034]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli_components/step_cmd.py", line 171, in step
+[MFLOG|0|2026-04-22T06:15:23.366934Z|runtime|acad2b4f-d19c-4a5c-8bec-54e1d3eeaaa2]    task.run_step(
+[MFLOG|0|2026-04-22T06:15:23.366955Z|runtime|39d54405-ef84-49f9-8019-abb2437c2967]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 899, in run_step
+[MFLOG|0|2026-04-22T06:15:23.366976Z|runtime|50c25b91-ece1-4627-b5f6-bd2c4b2df6be]    self._exec_step_function(step_func, orig_step_func)
+[MFLOG|0|2026-04-22T06:15:23.366997Z|runtime|9b117624-06c0-4b3c-99ad-28e6752845fc]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 147, in _exec_step_function
+[MFLOG|0|2026-04-22T06:15:23.367021Z|runtime|a49a5c37-b90d-4865-8ef1-04a68e39668d]    raise raised_exception
+[MFLOG|0|2026-04-22T06:15:23.367043Z|runtime|df008dd7-6823-4dac-930e-8ecf8a0c3871]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 113, in _exec_step_function
+[MFLOG|0|2026-04-22T06:15:23.367063Z|runtime|c29f69b9-5a55-4fc5-ad73-8ec3bdf7876a]    step_function()
+[MFLOG|0|2026-04-22T06:15:23.367085Z|runtime|35f0d639-e9da-48c5-9514-b3cedc579a78]  File "/home/barry/Documentos/Machine_Learning/ML_Project/pipeline.py", line 64, in train_discriminative
+[MFLOG|0|2026-04-22T06:15:23.367107Z|runtime|c57cd4f1-c21d-42d0-a235-8e635813b8ce]    model_lin.fit(X_train, self.y)
+[MFLOG|0|2026-04-22T06:15:23.367130Z|runtime|6444d717-c08c-4b9d-91ab-7664fb1c6a1e]  File "/home/barry/Documentos/Machine_Learning/ML_Project/linear.py", line 29, in fit
+[MFLOG|0|2026-04-22T06:15:23.367151Z|runtime|d797bca5-a770-4ec1-9146-0e0d650aea15]    self.beta = jnp.linalg.solve(XtX, Xty)
+[MFLOG|0|2026-04-22T06:15:23.367172Z|runtime|5f132de0-4662-4b8d-92d2-db83f503efcc]                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T06:15:23.367193Z|runtime|9ba29656-102a-4ea5-bc2a-7c209c234466]jax.errors.JaxRuntimeError: INTERNAL: jaxlib/gpu/solver_handle_pool.cc:37: operation gpusolverDnCreate(&handle) failed: cuSolver internal error
+[MFLOG|0|2026-04-22T06:15:23.367213Z|runtime|3a4df05a-bb50-4119-a749-7a6cdade469f]--------------------
+[MFLOG|0|2026-04-22T06:15:23.367240Z|runtime|f6c0ebc6-6beb-4c0a-b021-41f4277f824a]For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+[MFLOG|0|2026-04-22T06:15:23.367264Z|runtime|002d349b-a291-4eae-9d3a-786af8b2a239]
+[MFLOG|0|2026-04-22T06:15:23.367479Z|runtime|9b51018d-e8a1-4230-9046-0ad8dc96bda6]Task failed.

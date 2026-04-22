@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detector de Exoplanetas - Misión Kepler</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1e1e2f; color: #fff; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        .panel { background: #2a2a40; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .grid-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 15px;}
+        .card { background: #3f3f5a; padding: 15px; border-radius: 8px; text-align: center; border-left: 4px solid #00d2ff; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;}
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85em; color: #aaa; margin-bottom: 4px;}
+        input { padding: 8px; border-radius: 4px; border: 1px solid #555; background: #1e1e2f; color: white; }
+        button { background: #00d2ff; color: #000; font-weight: bold; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-size: 1.1em;}
+        button:hover { background: #00a8cc; }
+        #result { text-align: center; font-size: 1.5em; margin-top: 20px; color: #00d2ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">🔭 Analytical Dashboard: Kepler Telescope</h1>
+        
+        <div class="panel">
+            <h2>Model Comparison(Implemented with JAX)</h2>
+            <div id="metrics-output" class="grid-metrics">
+                Loading metrics from local API...
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Exoplanet Detection Simulation</h2>
+            <p style="color:#aaa;">Enter the 16 astrophysical characteristics of the object to evaluate it.</p>
+            
+            <div id="form-inputs" class="grid-inputs">
+                </div>
+            
+            <button py-click="analize_astro">Analize Spatial Data</button>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script type="py">
+        from pyscript import display, document
+        from pyodide.http import pyfetch
+        import json
+
+        # variables requered by API (dataset)
+        variables_nasa_dict = {
+            "koi_period": "Orbital Period (days)", 
+            "koi_time0bk": "Transit Epoch (BJD)", 
+            "koi_impact": "Impact Parameter", 
+            "koi_duration": "Transit Duration (hours)",
+            "koi_depth": "Transit Depth (ppm)", 
+            "koi_prad": "Planetary Radius (Earth radii)", 
+            "koi_teff": "Equilibrium Temperature (K)", 
+            "koi_insol": "Insolation Flux",
+            "koi_model_snr": "Transit Signal-to-Noise", 
+            "koi_tce_plnt_num": "TCE Planet Number", 
+            "koi_steff": "Stellar Effective Temp (K)", 
+            "koi_slogg": "Stellar Surface Gravity",
+            "koi_srad": "Stellar Radius (Solar radii)", 
+            "ra": "Right Ascension (RA)", 
+            "dec": "Declination (Dec)", 
+            "koi_kepmag": "Kepler Band Magnitude"
+        }
+
+        variables = list(variables_nasa_dict.keys())
+
+        # Generate inputs dynamicaly on HTML
+        def create_form():
+            form_div = document.getElementById("form-inputs")
+            html_content = ""
+
+            for var, label_text in variables_nasa_dict.items():
+                # Starting value at 0.0
+                html_content += f"""
+                <div class="input-group">
+                    <label>{label_text}</label>
+                    <input type="number" id="{var}" value="0.0" step="any">
+                </div>
+                """
+            form_div.innerHTML = html_content
+
+        # Get metrics when the page is loading
+        async def fetch_metrics():
+            try:
+                res = await pyfetch("http://localhost:8000/metrics", method="GET")
+                data = await res.json()
+                out = document.getElementById("metrics-output")
+                out.innerHTML = ""
+                for m in data:
+                    card = f"""
+                    <div class='card'>
+                        <h3 style="margin:0 0 10px 0;">{m['name']}</h3>
+                        <div style="font-size:0.9em;">Acc: {m['accuracy']:.2%}</div>
+                        <div style="font-size:0.9em;">F1: {m['f1']:.2%}</div>
+                    </div>
+                    """
+                    out.innerHTML += card
+            except Exception as e:
+                document.getElementById("metrics-output").innerHTML = "Error connecting to the API. Is uvicorn running?"
+
+        # send data to the API to make the predictions
+        async def analize_astro(event):
+            res_div = document.getElementById("result")
+            res_div.innerHTML = "Analizando..."
+
+            # get the 16 data inputs
+            payload = {}
+            for var in variables:
+                valor_str = document.getElementById(var).value
+                payload[var] = float(valor_str) if valor_str else 0.0
+
+            try:
+                # call POST to the API
+                respuesta = await pyfetch("http://localhost:8000/predict", 
+                                          method="POST", 
+                                          body=json.dumps(payload),
+                                          headers={"Content-Type": "application/json"})
+                
+                datos = await respuesta.json()
+                res_div.innerHTML = datos["label"]
+            except Exception as e:
+                res_div.innerHTML = f"Error en la predicción: {str(e)}"
+
+        # Inicialization
+        create_form()
+        import asyncio
+        asyncio.ensure_future(fetch_metrics())
+    </script>
+</body>
+</html>

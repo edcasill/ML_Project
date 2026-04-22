@@ -1,0 +1,8 @@
+[MFLOG|0|2026-04-22T06:15:23.367751Z|runtime|f2b1790e-1d9d-490d-b06f-a7e38ffbc8ba][KILLED BY ORCHESTRATOR]
+[MFLOG|0|2026-04-22T06:15:28.000310Z|runtime|32012db6-7f79-4329-a5cf-9446055d6942]Convergence reach at iteration 33 | Log-Likelihood: -105641.8438
+[MFLOG|0|2026-04-22T06:15:28.000369Z|runtime|d30d20ec-6466-47a9-a899-57c3a8ee2c80]Convergence reach at iteration 55 | Log-Likelihood: -25065.3203
+[MFLOG|0|2026-04-22T06:15:28.000396Z|runtime|9b90d020-c458-437a-b831-c975b6b380e4]Convergence reach at iteration 37 | Log-Likelihood: -105642.3125
+[MFLOG|0|2026-04-22T06:15:28.000419Z|runtime|8de59c27-1879-40b3-9c0b-5701d6290722]Convergence reach at iteration 43 | Log-Likelihood: -25065.3359
+[MFLOG|0|2026-04-22T06:15:28.000441Z|runtime|91799bc7-a089-42a4-8158-c3a6cbfa062a]Convergence reach at iteration 33 | Log-Likelihood: -73226.7656
+[MFLOG|0|2026-04-22T06:15:28.000463Z|runtime|cde49c9e-9018-4465-adcf-278ed34982f6]Convergence reach at iteration 37 | Log-Likelihood: -24853.2461
+[MFLOG|0|2026-04-22T06:15:28.000486Z|runtime|c9282b08-f3b0-446b-8e39-3d5ca85e1f0c]Convergence reach at iteration 55 | Log-Likelihood: -78144.2656

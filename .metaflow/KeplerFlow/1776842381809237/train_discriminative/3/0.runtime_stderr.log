@@ -1,0 +1,40 @@
+[MFLOG|0|2026-04-22T07:20:26.017200Z|runtime|b8b86732-5ef1-44ec-8a62-5c377b77c746]<flow KeplerFlow step train_discriminative> failed:
+[MFLOG|0|2026-04-22T07:20:26.022268Z|runtime|4bda1296-f0b5-4a6b-b8c1-1270b336a618]    Internal error
+[MFLOG|0|2026-04-22T07:20:26.023237Z|runtime|04389151-78bf-40dc-a762-c89dc4db3b27]Traceback (most recent call last):
+[MFLOG|0|2026-04-22T07:20:26.023283Z|runtime|45368673-00dc-430d-abb1-92af485070ca]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli.py", line 727, in main
+[MFLOG|0|2026-04-22T07:20:26.023319Z|runtime|a8e62c05-9bf7-40a0-b37e-376b0345d52f]    start(auto_envvar_prefix="METAFLOW", obj=state)
+[MFLOG|0|2026-04-22T07:20:26.023352Z|runtime|7fce9556-aaad-4c90-8c21-61d077a0ace6]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 829, in __call__
+[MFLOG|0|2026-04-22T07:20:26.023385Z|runtime|3f6426a0-5dfe-46c1-ab9d-851b726656c9]    return self.main(args, kwargs)
+[MFLOG|0|2026-04-22T07:20:26.755278Z|runtime|78fbe289-a405-401b-bd31-df5e30db5993]           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755424Z|runtime|ed99364f-f0cd-4c80-8a7d-922b788b9b36]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 782, in main
+[MFLOG|0|2026-04-22T07:20:26.755464Z|runtime|42e5be57-8e80-42f3-80e6-df9dc53791ce]    rv = self.invoke(ctx)
+[MFLOG|0|2026-04-22T07:20:26.755497Z|runtime|156c397e-6803-4b5c-9d82-e3a62dc6bf80]         ^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755527Z|runtime|a0f4a824-8172-4995-b68f-d7df400510ca]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli_components/utils.py", line 69, in invoke
+[MFLOG|0|2026-04-22T07:20:26.755554Z|runtime|0efdffc1-e629-48bc-90f3-45816f542340]    return _process_result(sub_ctx.command.invoke(sub_ctx))
+[MFLOG|0|2026-04-22T07:20:26.755581Z|runtime|d6597663-28de-41f9-ac37-5e535187c0ea]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755608Z|runtime|7a59ffd0-3622-4392-921b-22e7914d0823]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 1066, in invoke
+[MFLOG|0|2026-04-22T07:20:26.755634Z|runtime|340c262e-4cb7-4e54-9cd7-f75d6de027e7]    return ctx.invoke(self.callback, ctx.params)
+[MFLOG|0|2026-04-22T07:20:26.755661Z|runtime|959d57fb-cf05-450f-b053-cb4dfaa75169]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755686Z|runtime|921dd37d-ef3e-4dad-86be-2b5d1f59313f]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 610, in invoke
+[MFLOG|0|2026-04-22T07:20:26.755711Z|runtime|4322b195-7d06-445d-bb77-b560691d1fb9]    return callback(args, kwargs)
+[MFLOG|0|2026-04-22T07:20:26.755736Z|runtime|f649cbfe-5561-4fc7-b8e2-361d904e89c3]           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755761Z|runtime|b5dd4692-9af4-4e21-be98-6a8001147325]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/tracing/__init__.py", line 27, in wrapper_func
+[MFLOG|0|2026-04-22T07:20:26.755787Z|runtime|ec6eb842-20a1-4575-813d-91ac9089f55f]    return func(args, kwargs)
+[MFLOG|0|2026-04-22T07:20:26.755819Z|runtime|938e5f03-a85d-462a-9c7b-e847d0931dc2]           ^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755845Z|runtime|2783c3b5-31d7-422e-9eab-83c4d84c5510]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/decorators.py", line 21, in new_func
+[MFLOG|0|2026-04-22T07:20:26.755870Z|runtime|d2eefa06-96d4-468a-9e49-a31f9ca2d1fd]    return f(get_current_context(), args, kwargs)
+[MFLOG|0|2026-04-22T07:20:26.755894Z|runtime|78af0f53-35a1-48ab-a08b-3101d5189d9e]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.755918Z|runtime|7be2120c-0fd4-40ce-b11e-a16a3d090971]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli_components/step_cmd.py", line 171, in step
+[MFLOG|0|2026-04-22T07:20:26.755942Z|runtime|77a32176-61b7-4312-89f4-807549154026]    task.run_step(
+[MFLOG|0|2026-04-22T07:20:26.755967Z|runtime|943db7ac-0215-4dab-8b0b-f7f76d8fdc8c]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 899, in run_step
+[MFLOG|0|2026-04-22T07:20:26.755992Z|runtime|af67317e-dca5-4f99-8585-ada8515414da]    self._exec_step_function(step_func, orig_step_func)
+[MFLOG|0|2026-04-22T07:20:26.756016Z|runtime|36c39c07-0723-4e71-8bde-e85c618530c9]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 147, in _exec_step_function
+[MFLOG|0|2026-04-22T07:20:26.756040Z|runtime|871c0868-8a0b-4bb8-bb0e-a0c3f3c96dcc]    raise raised_exception
+[MFLOG|0|2026-04-22T07:20:26.756064Z|runtime|43ce12c7-7fbc-4011-b010-7003d8b0f1fd]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 113, in _exec_step_function
+[MFLOG|0|2026-04-22T07:20:26.756088Z|runtime|09766935-abe7-4821-9ea2-1475ffd672bb]    step_function()
+[MFLOG|0|2026-04-22T07:20:26.756112Z|runtime|47a388f2-fa29-4c9c-9721-958e64155a75]  File "/home/barry/Documentos/Machine_Learning/ML_Project/pipeline.py", line 85, in train_discriminative
+[MFLOG|0|2026-04-22T07:20:26.756137Z|runtime|8b6021bb-e805-42fd-a442-ee58d5c9598f]    y_hat_log = model_log.predict(self.X_test.T)
+[MFLOG|0|2026-04-22T07:20:26.756161Z|runtime|2f5e6e6b-7269-422e-9252-8d6d58a5e54b]                ^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:20:26.756185Z|runtime|3e5f20ae-a145-46c9-9504-7e286153e967]AttributeError: 'logistic' object has no attribute 'predict'
+[MFLOG|0|2026-04-22T07:20:26.756209Z|runtime|e5812901-aea7-4773-a3b0-f1520bbdc86e]
+[MFLOG|0|2026-04-22T07:20:26.756444Z|runtime|3a73094c-f706-4872-b5b1-39370309beaf]Task failed.

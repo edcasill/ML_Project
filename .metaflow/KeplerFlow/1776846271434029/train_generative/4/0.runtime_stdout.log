@@ -1,0 +1,7 @@
+[MFLOG|0|2026-04-22T08:25:28.401215Z|runtime|c94526c7-946d-4182-8d56-74d399acf4dd]Convergence reach at iteration 33 | Log-Likelihood: -105641.8516
+[MFLOG|0|2026-04-22T08:25:28.452169Z|runtime|a0419aed-fa9b-4247-beb7-11c182f48ee8]Convergence reach at iteration 68 | Log-Likelihood: -25065.3125
+[MFLOG|0|2026-04-22T08:25:28.490147Z|runtime|2a8d868b-45ca-4892-bf1c-319f02c99af0]Convergence reach at iteration 36 | Log-Likelihood: -105642.3125
+[MFLOG|0|2026-04-22T08:25:28.514806Z|runtime|2306f2a3-84ba-41c9-80dc-37f19cd497f3]Convergence reach at iteration 50 | Log-Likelihood: -25065.3242
+[MFLOG|0|2026-04-22T08:25:28.530770Z|runtime|59a4e774-1029-46b0-81c4-940dc445db3e]Convergence reach at iteration 31 | Log-Likelihood: -73226.7656
+[MFLOG|0|2026-04-22T08:25:28.549561Z|runtime|6757bed9-814f-4d19-821e-0dcb05a31ed1]Convergence reach at iteration 36 | Log-Likelihood: -24853.2480
+[MFLOG|0|2026-04-22T08:25:28.578092Z|runtime|9ae8596a-17b1-47c8-b0d4-500307712e87]Convergence reach at iteration 57 | Log-Likelihood: -78144.3125

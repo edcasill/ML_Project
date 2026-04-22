@@ -1,0 +1,58 @@
+1: Un Exoplaneta Confirmado (Tipo Tierra/Súper-Tierra)
+Estos valores corresponden a un tránsito planetario suave, con un radio pequeño y una temperatura estelar estable.
+
+koi_period: 28.59
+koi_time0bk: 131.2
+koi_impact: 0.58
+koi_duration: 4.5
+koi_depth: 600.0
+koi_prad: 2.26
+koi_teff: 5450.0
+koi_insol: 93.5
+koi_model_snr: 35.8
+koi_tce_plnt_num: 1.0
+koi_steff: 5450.0
+koi_slogg: 4.46
+koi_srad: 0.92
+ra: 291.9
+dec: 48.1
+koi_kepmag: 14.2
+
+2: Un False Positive (Estrella Binaria Eclipsante)
+Estos valores son típicos de una estrella gigante que eclipsa a otra. Nota cómo la profundidad del tránsito (koi_depth) y el radio (koi_prad) son absurdamente masivos para un planeta.
+
+koi_period: 1.73
+koi_time0bk: 134.9
+koi_impact: 1.25 (Impacto mayor a 1 suele indicar un eclipse rasante de estrella)
+koi_duration: 2.4
+koi_depth: 85000.0 (Profundidad inmensa)
+koi_prad: 65.0 (Demasiado grande para ser planeta)
+koi_teff: 6200.0
+koi_insol: 8500.0
+koi_model_snr: 500.2
+koi_tce_plnt_num: 1.0
+koi_steff: 6200.0
+koi_slogg: 4.01
+koi_srad: 1.55
+ra: 285.5
+dec: 41.2
+koi_kepmag: 11.5
+
+3: a very bright star
+
+koi_period: 0.35 (Un periodo de un tercio de día es casi imposible para un planeta que sobreviva, típico de binarias)
+koi_time0bk: 120.5
+koi_impact: 1.45 (Un impacto mayor a 1 significa que el objeto apenas "roza" el borde de la estrella, indicando que es otra estrella gigante)
+koi_duration: 8.5 (Duración altísima para un periodo tan corto)
+koi_depth: 450000.0 (Bloquea el 45% de la luz, ningún planeta es tan grande)
+koi_prad: 95.0 (95 radios terrestres es el tamaño de una estrella enana, no de un planeta)
+koi_teff: 7500.0
+koi_insol: 50000.0
+koi_model_snr: 6.2 (Relación Señal-Ruido bajísima, el telescopio apenas lo vio entre la basura)
+koi_tce_plnt_num: 1.0
+koi_steff: 7500.0
+koi_slogg: 3.5 (Gravedad de una estrella gigante)
+koi_srad: 3.2
+ra: 295.0
+dec: 45.0
+koi_kepmag: 15.8 (Una estrella muy tenue)

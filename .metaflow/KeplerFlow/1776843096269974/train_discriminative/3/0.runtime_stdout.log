@@ -1,0 +1,59 @@
+[MFLOG|0|2026-04-22T07:31:40.549937Z|runtime|1c2848a8-4417-4909-90ec-5ce265509cc0]TP: 325
+[MFLOG|0|2026-04-22T07:31:40.550063Z|runtime|0f102c0f-0579-43b6-8546-eac22888ae51]TN: 996
+[MFLOG|0|2026-04-22T07:31:40.550133Z|runtime|30775b3f-c51a-4a4e-9d87-85e2802f17ba]FP: 346
+[MFLOG|0|2026-04-22T07:31:40.550194Z|runtime|22060f61-87b6-4cb9-9082-b26841951e24]FN: 122
+[MFLOG|0|2026-04-22T07:32:18.394161Z|runtime|d328f32f-ee11-4445-b86f-dc2cdd3a6d80]Reached iteration limit
+[MFLOG|0|2026-04-22T07:32:18.661331Z|runtime|a2b95189-bd8f-489f-866c-41f5d7a28cde]TP: 323
+[MFLOG|0|2026-04-22T07:32:18.661453Z|runtime|83d5475a-d337-475a-903a-a4877fdd20ae]TN: 1040
+[MFLOG|0|2026-04-22T07:32:22.909781Z|runtime|e9388425-9ab4-4cce-ab6b-76442186c79d]FP: 302
+[MFLOG|0|2026-04-22T07:32:22.909915Z|runtime|2ab6d51a-2fd0-407c-923d-91e46b7ad17e]FN: 124
+[MFLOG|0|2026-04-22T07:32:22.909973Z|runtime|01538eae-7789-4c37-963c-1c452806772c]Epoch 0 | Precissionn: 0.4683 | Loss: 1.0785
+[MFLOG|0|2026-04-22T07:32:23.028445Z|runtime|7f734587-3878-4755-9a65-04dcff208f98]Epoch 10 | Precissionn: 0.4781 | Loss: 0.9528
+[MFLOG|0|2026-04-22T07:32:23.144818Z|runtime|6bb00d05-c311-4789-b075-951d4735f81f]Epoch 20 | Precissionn: 0.4872 | Loss: 0.8782
+[MFLOG|0|2026-04-22T07:32:23.261338Z|runtime|fd50d3d8-cdce-44b6-9bd2-392c45d71b77]Epoch 30 | Precissionn: 0.4966 | Loss: 0.8329
+[MFLOG|0|2026-04-22T07:32:23.377655Z|runtime|af602fbf-6695-4d78-80f9-4ec5022d0dc6]Epoch 40 | Precissionn: 0.5046 | Loss: 0.8038
+[MFLOG|0|2026-04-22T07:32:23.493819Z|runtime|fa8cfe8d-f730-40e5-ac21-f51ecf48f92a]Epoch 50 | Precissionn: 0.5109 | Loss: 0.7842
+[MFLOG|0|2026-04-22T07:32:23.609555Z|runtime|b0339b88-b7c1-442b-9fd1-3f594a672802]Epoch 60 | Precissionn: 0.5162 | Loss: 0.7699
+[MFLOG|0|2026-04-22T07:32:23.726630Z|runtime|3fb3ced2-de65-4a1a-bc99-40731a24c92a]Epoch 70 | Precissionn: 0.5201 | Loss: 0.7589
+[MFLOG|0|2026-04-22T07:32:23.846527Z|runtime|3ad00088-b047-4a6e-90cd-b441a5210e72]Epoch 80 | Precissionn: 0.5235 | Loss: 0.7502
+[MFLOG|0|2026-04-22T07:32:23.967085Z|runtime|ffef19e5-baa6-4260-a5ef-ea486a6cdef3]Epoch 90 | Precissionn: 0.5259 | Loss: 0.7429
+[MFLOG|0|2026-04-22T07:32:24.085757Z|runtime|d658ade9-fbc3-4a1b-90c5-8f0566944465]Epoch 100 | Precissionn: 0.5275 | Loss: 0.7367
+[MFLOG|0|2026-04-22T07:32:24.203931Z|runtime|3f39fd69-3190-47dc-800e-46b6ff4786ce]Epoch 110 | Precissionn: 0.5290 | Loss: 0.7315
+[MFLOG|0|2026-04-22T07:32:24.321925Z|runtime|0692db50-48c4-483c-ab0f-b1e3bf18880a]Epoch 120 | Precissionn: 0.5302 | Loss: 0.7271
+[MFLOG|0|2026-04-22T07:32:24.440037Z|runtime|e1af5143-0bbe-45dd-b78f-aa097a3235dc]Epoch 130 | Precissionn: 0.5310 | Loss: 0.7233
+[MFLOG|0|2026-04-22T07:32:24.557545Z|runtime|5a5a146e-f1b5-4d26-ab80-1a2dc335065f]Epoch 140 | Precissionn: 0.5319 | Loss: 0.7200
+[MFLOG|0|2026-04-22T07:32:24.673714Z|runtime|8fe74d9a-6686-422f-a4e2-7e4a3afa9be2]Epoch 150 | Precissionn: 0.5323 | Loss: 0.7172
+[MFLOG|0|2026-04-22T07:32:24.790162Z|runtime|255f3474-5a67-44da-b56c-6ec571fb995e]Epoch 160 | Precissionn: 0.5330 | Loss: 0.7148
+[MFLOG|0|2026-04-22T07:32:24.906369Z|runtime|7e7cb4bd-20dc-4c95-a7c9-1d7d009d0cb5]Epoch 170 | Precissionn: 0.5334 | Loss: 0.7127
+[MFLOG|0|2026-04-22T07:32:25.024482Z|runtime|1851c11d-c89f-4de7-8cf7-78a6236843bc]Epoch 180 | Precissionn: 0.5336 | Loss: 0.7108
+[MFLOG|0|2026-04-22T07:32:25.140645Z|runtime|2d91df36-dc8c-4f84-b563-d5c52c64cbaa]Epoch 190 | Precissionn: 0.5340 | Loss: 0.7092
+[MFLOG|0|2026-04-22T07:32:25.256735Z|runtime|d5f139c4-73d2-4a82-8e5f-378a8c9bd3ef]Epoch 200 | Precissionn: 0.5339 | Loss: 0.7078
+[MFLOG|0|2026-04-22T07:32:25.372404Z|runtime|36d75453-e116-4a2a-9fc3-a38fb6b853ed]Epoch 210 | Precissionn: 0.5343 | Loss: 0.7065
+[MFLOG|0|2026-04-22T07:32:25.489513Z|runtime|cbbf06be-ed5f-48a9-8d0e-eea0ed8f42dc]Epoch 220 | Precissionn: 0.5344 | Loss: 0.7054
+[MFLOG|0|2026-04-22T07:32:25.608019Z|runtime|4a5776f7-34f5-4e30-8387-4002288cf3ae]Epoch 230 | Precissionn: 0.5345 | Loss: 0.7045
+[MFLOG|0|2026-04-22T07:32:25.724984Z|runtime|0ae4acd9-6584-4e3a-8989-d33c6fa83cb3]Epoch 240 | Precissionn: 0.5348 | Loss: 0.7036
+[MFLOG|0|2026-04-22T07:32:25.841600Z|runtime|b7adbd22-be45-4a1f-8502-4e4f3b658e27]Epoch 250 | Precissionn: 0.5348 | Loss: 0.7029
+[MFLOG|0|2026-04-22T07:32:25.959608Z|runtime|a60a3575-93e2-467d-8a9c-d6a662738cda]Epoch 260 | Precissionn: 0.5347 | Loss: 0.7022
+[MFLOG|0|2026-04-22T07:32:26.078739Z|runtime|f4f5a55f-6008-4340-94bc-273c78b03ac8]Epoch 270 | Precissionn: 0.5349 | Loss: 0.7016
+[MFLOG|0|2026-04-22T07:32:26.197665Z|runtime|925ac3c3-cddd-4f32-92ee-500d750069ee]Epoch 280 | Precissionn: 0.5350 | Loss: 0.7011
+[MFLOG|0|2026-04-22T07:32:26.316301Z|runtime|b3a95f7a-8f1e-45c4-91d8-7552cc3439cb]Epoch 290 | Precissionn: 0.5350 | Loss: 0.7006
+[MFLOG|0|2026-04-22T07:32:26.434012Z|runtime|f0f311bf-d382-4196-8bda-9078b002a861]Epoch 300 | Precissionn: 0.5352 | Loss: 0.7001
+[MFLOG|0|2026-04-22T07:32:26.551665Z|runtime|2f18d3d3-a56e-4cb9-b569-a9ff349c6f4e]Epoch 310 | Precissionn: 0.5354 | Loss: 0.6997
+[MFLOG|0|2026-04-22T07:32:26.667591Z|runtime|3f9b1016-9912-48e5-ad4b-0fd499dc8be3]Epoch 320 | Precissionn: 0.5356 | Loss: 0.6994
+[MFLOG|0|2026-04-22T07:32:26.784652Z|runtime|50cfc31d-4244-451b-bc21-7b92c5f86bb7]Epoch 330 | Precissionn: 0.5357 | Loss: 0.6990
+[MFLOG|0|2026-04-22T07:32:26.902254Z|runtime|019fe94e-53c7-414f-904e-6488b2ad3c7d]Epoch 340 | Precissionn: 0.5357 | Loss: 0.6987
+[MFLOG|0|2026-04-22T07:32:27.019117Z|runtime|27916e1f-db3e-4d95-9a46-37bb816fe507]Epoch 350 | Precissionn: 0.5356 | Loss: 0.6984
+[MFLOG|0|2026-04-22T07:32:27.138078Z|runtime|d357f1db-95dc-4059-8e2e-0bcadb7bf1ad]Epoch 360 | Precissionn: 0.5356 | Loss: 0.6982
+[MFLOG|0|2026-04-22T07:32:27.255529Z|runtime|77b6cdcf-d25b-404f-b2fc-105cbd6c214c]Epoch 370 | Precissionn: 0.5356 | Loss: 0.6979
+[MFLOG|0|2026-04-22T07:32:27.375431Z|runtime|f2f37be3-e436-4508-a77a-4fd3aa4b04a3]Epoch 380 | Precissionn: 0.5358 | Loss: 0.6977
+[MFLOG|0|2026-04-22T07:32:27.495719Z|runtime|ae8abbaf-3ff2-4a9c-b36b-f4a0475a95d2]Epoch 390 | Precissionn: 0.5358 | Loss: 0.6975
+[MFLOG|0|2026-04-22T07:32:27.614139Z|runtime|b7fd36e6-39dd-4a2a-8a83-a5f25f6b5ea0]Epoch 400 | Precissionn: 0.5360 | Loss: 0.6973
+[MFLOG|0|2026-04-22T07:32:27.730029Z|runtime|22d19417-0afb-4057-b42c-dc354032d674]Epoch 410 | Precissionn: 0.5360 | Loss: 0.6971
+[MFLOG|0|2026-04-22T07:32:27.846730Z|runtime|d2c517a8-219d-44fa-9314-3319853a2a83]Epoch 420 | Precissionn: 0.5360 | Loss: 0.6970
+[MFLOG|0|2026-04-22T07:32:27.964601Z|runtime|d14e10c7-a20e-42c4-bae1-3ebf64d912f1]Epoch 430 | Precissionn: 0.5361 | Loss: 0.6968
+[MFLOG|0|2026-04-22T07:32:28.083641Z|runtime|89daacc4-aa5b-4957-af40-80f1feeb2841]Epoch 440 | Precissionn: 0.5363 | Loss: 0.6966
+[MFLOG|0|2026-04-22T07:32:28.202946Z|runtime|a9793f31-11e0-4a7c-b634-c2f8803dde9b]Epoch 450 | Precissionn: 0.5364 | Loss: 0.6965
+[MFLOG|0|2026-04-22T07:32:28.319107Z|runtime|1cda5679-8931-4879-a464-627bf9489929]Epoch 460 | Precissionn: 0.5364 | Loss: 0.6964
+[MFLOG|0|2026-04-22T07:32:28.438537Z|runtime|758fcd4d-4246-4d8b-9598-a91070a817f6]Epoch 470 | Precissionn: 0.5365 | Loss: 0.6962
+[MFLOG|0|2026-04-22T07:32:28.557640Z|runtime|f5b1e14b-6065-4235-94b1-3d8af076fbe8]Epoch 480 | Precissionn: 0.5366 | Loss: 0.6961
+[MFLOG|0|2026-04-22T07:32:28.676865Z|runtime|deaea770-c2a3-4f20-adb6-9c210cc8bca5]Epoch 490 | Precissionn: 0.5368 | Loss: 0.6960
