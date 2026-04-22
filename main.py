@@ -319,6 +319,12 @@ def main():
         y_hat_val_tree = tree_model.predict(X_val.T)
         val_prec_tree, val_rec_tree, val_acc_tree, val_f1_tree, val_cm_tree = tree_model.calculate_metrics(y_val, y_hat_val_tree)  # noqa
 
+        print("_"*80)
+        print(f"Precision: {val_prec_tree:.4f} | Recall: {val_rec_tree:.4f} | Accuracy: {val_acc_tree:.4f} | F1-Score: {val_f1_tree:.4f}")
+        print("Confusion Matrix:")
+        print(val_cm_tree)
+        print("_"*80 + '\n')
+
         mlflow.log_metric("val_precision", val_prec_tree)
         mlflow.log_metric("val_recall", val_rec_tree)
         mlflow.log_metric("val_accuracy", val_acc_tree)
@@ -328,6 +334,12 @@ def main():
         print('Generating predictions for test')
         y_hat_test_tree = tree_model.predict(X_test.T)
         test_prec_tree, test_rec_tree, test_acc_tree, test_f1_tree, test_cm_tree = tree_model.calculate_metrics(y_test, y_hat_test_tree)  # noqa
+
+        print("_"*80)
+        print(f"Precision: {test_prec_tree:.4f} | Recall: {test_rec_tree:.4f} | Accuracy: {test_acc_tree:.4f} | F1-Score: {test_f1_tree:.4f}")
+        print("Confusion Matrix:")
+        print(test_cm_tree)
+        print("_"*80 + '\n')
 
         mlflow.log_metric("test_precision", test_prec_tree)
         mlflow.log_metric("test_recall", test_rec_tree)
@@ -452,7 +464,7 @@ def main():
 
         # Validation
         print('Generating predictions for validation')
-        y_hat_val_boost = boost_model.predict(X_val.T)
+        y_hat_val_boost = boost_model.prediction(X_val.T)
         val_prec_bst, val_rec_bst, val_acc_bst, val_f1_bst = boost_model.calculate_metrics(y_val, y_hat_val_boost)[:4]
         
         # Confusion matrix
@@ -473,7 +485,7 @@ def main():
         # Test
         print('Generating predictions for test')
 
-        y_hat_test_boost = boost_model.predict(X_val.T)
+        y_hat_test_boost = boost_model.prediction(X_val.T)
         test_prec_bst, test_rec_bst, test_acc_bst, test_f1_bst = boost_model.calculate_metrics(y_test, y_hat_test_boost)[:4]
         
         # Confusion matrix
@@ -486,10 +498,10 @@ def main():
         print(f"Precision: {test_prec_bst:.4f} | Recall: {test_rec_bst:.4f} | Accuracy: {test_acc_bst:.4f} | F1-Score: {test_f1_bst:.4f}")
         print("_"*80 + '\n')
 
-        mlflow.log_metric("val_precision", test_prec_bst)
-        mlflow.log_metric("val_recall", test_rec_bst)
-        mlflow.log_metric("val_accuracy", test_acc_bst)
-        mlflow.log_metric("val_f1", test_f1_bst)
+        mlflow.log_metric("test_precision", test_prec_bst)
+        mlflow.log_metric("test_recall", test_rec_bst)
+        mlflow.log_metric("test_accuracy", test_acc_bst)
+        mlflow.log_metric("test_f1", test_f1_bst)
 
         # ARTIFACTS
         # save parameters learned by em algorithm

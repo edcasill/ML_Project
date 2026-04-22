@@ -63,7 +63,7 @@ class AdaBoost:
         stump_predict = jnp.zeros((X.shape[0], len(self.models)))
 
         for index, (alpha, stump) in enumerate(zip(self.alphas, self.models)):
-            pred = stump.prediction(X)
+            pred = stump.predict(X)
             pred_boost = jnp.where(pred == 0, -1, 1)
             # acumulate the prediction (alpha * prediction)
             stump_predict = stump_predict.at[:, index].set(alpha * pred_boost)
