@@ -5,6 +5,20 @@ This contains:
 
 - Linear classificator
 - Logistic classificator
+- Multilayer Perceptron
+- Classification (Decision) Trees
+- Mixture Models (EM + Naive Bayes)
+- AdaBoost
 
+## Dataset
 I'm using the dataset 
 [Kepler Exoplanet Search Results](https://www.kaggle.com/datasets/nasa/kepler-exoplanet-search-results) provided by NASA.
+
+## Instructions
+Run "pip install -r requirements" to install neesary libraries
+
+Execute uvicorn "api:app --reload" to enable uvicorn server
+
+Execute index.html
+
+There are some test cases to validate de data on test_cases.txt
