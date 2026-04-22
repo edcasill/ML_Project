@@ -1,0 +1,40 @@
+[MFLOG|0|2026-04-22T07:30:54.513064Z|runtime|1d02b70a-f7b5-4f58-bda4-03bb0f076b5f]<flow KeplerFlow step train_ensemble> failed:
+[MFLOG|0|2026-04-22T07:30:54.516899Z|runtime|982ccfe2-7e4b-43cc-819c-3960011c4210]    Internal error
+[MFLOG|0|2026-04-22T07:30:54.517891Z|runtime|30ea36c1-1c39-4807-ae8d-c89b61763c83]Traceback (most recent call last):
+[MFLOG|0|2026-04-22T07:30:54.517936Z|runtime|8d9b6041-8d83-41bf-ae74-dabaceba3e38]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli.py", line 727, in main
+[MFLOG|0|2026-04-22T07:30:54.518003Z|runtime|d5121dda-a6f8-4e7b-b59a-90c7d18b3932]    start(auto_envvar_prefix="METAFLOW", obj=state)
+[MFLOG|0|2026-04-22T07:30:54.518053Z|runtime|a2240dd1-7e13-454b-b68e-c3431de53191]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 829, in __call__
+[MFLOG|0|2026-04-22T07:30:54.518101Z|runtime|cf1f3117-6a5e-49a5-a9cd-2bcc314c3799]    return self.main(args, kwargs)
+[MFLOG|0|2026-04-22T07:30:57.722295Z|runtime|cc466dd2-0d03-4a6e-a451-717af06d01d8]           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722410Z|runtime|bfa32213-021f-4726-bb56-c1375258da67]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 782, in main
+[MFLOG|0|2026-04-22T07:30:57.722448Z|runtime|d839f94b-445e-4fbd-bf35-510cc24f0e08]    rv = self.invoke(ctx)
+[MFLOG|0|2026-04-22T07:30:57.722480Z|runtime|36a1ee76-789b-4b33-adf7-17d7ddff1f5b]         ^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722508Z|runtime|8c2af338-6da3-4c6b-a8a0-6c91dceacbdd]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli_components/utils.py", line 69, in invoke
+[MFLOG|0|2026-04-22T07:30:57.722534Z|runtime|267412d6-d539-413e-9029-3b3d9eba45da]    return _process_result(sub_ctx.command.invoke(sub_ctx))
+[MFLOG|0|2026-04-22T07:30:57.722561Z|runtime|11e414b4-6ecc-46ca-906d-ad6bb2364279]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722588Z|runtime|21127e40-5e90-4cb4-84d9-3d563d91088a]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 1066, in invoke
+[MFLOG|0|2026-04-22T07:30:57.722613Z|runtime|7514a01b-9c8c-43e6-9282-58eaab6b1ad8]    return ctx.invoke(self.callback, ctx.params)
+[MFLOG|0|2026-04-22T07:30:57.722640Z|runtime|84c30e98-f753-49ea-ad89-0e1b7f6e2b3c]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722666Z|runtime|eedd683e-3a89-47b3-b808-5f20e014da0a]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/core.py", line 610, in invoke
+[MFLOG|0|2026-04-22T07:30:57.722692Z|runtime|b2c71df2-cc23-44ce-b14e-2e276e8ca933]    return callback(args, kwargs)
+[MFLOG|0|2026-04-22T07:30:57.722717Z|runtime|40f4be23-7e1c-44ee-b929-ae41a44b0edf]           ^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722742Z|runtime|266e89f4-8cfe-4cc9-be54-cc63b623c535]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/tracing/__init__.py", line 27, in wrapper_func
+[MFLOG|0|2026-04-22T07:30:57.722766Z|runtime|8c9d55f8-4158-4a3c-bd9c-71e70f970a93]    return func(args, kwargs)
+[MFLOG|0|2026-04-22T07:30:57.722791Z|runtime|ce45e802-8f3f-4448-a9c7-9a6efbc60f5c]           ^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722821Z|runtime|7ea7c465-e386-4faa-b08e-13de2115459a]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/_vendor/click/decorators.py", line 21, in new_func
+[MFLOG|0|2026-04-22T07:30:57.722847Z|runtime|5135dcb1-5e88-4434-9fe0-9f8bf1e139e2]    return f(get_current_context(), args, kwargs)
+[MFLOG|0|2026-04-22T07:30:57.722870Z|runtime|547d67ea-8939-43d7-ae64-090d21caefad]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.722894Z|runtime|8b441bf0-8ad3-4164-98fd-f45660a7471d]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/cli_components/step_cmd.py", line 171, in step
+[MFLOG|0|2026-04-22T07:30:57.722919Z|runtime|98693444-ad0d-4390-b530-826dba35eac0]    task.run_step(
+[MFLOG|0|2026-04-22T07:30:57.722944Z|runtime|9bc23a9b-7d4b-4ef7-910a-42f031763da1]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 899, in run_step
+[MFLOG|0|2026-04-22T07:30:57.722968Z|runtime|cb63b984-c24c-4b26-9445-3f9568c3bb73]    self._exec_step_function(step_func, orig_step_func)
+[MFLOG|0|2026-04-22T07:30:57.722992Z|runtime|40b8450d-c869-46ae-b581-8f51820c8245]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 147, in _exec_step_function
+[MFLOG|0|2026-04-22T07:30:57.723016Z|runtime|76181e1f-48cc-4f99-9750-fe752961a65b]    raise raised_exception
+[MFLOG|0|2026-04-22T07:30:57.723040Z|runtime|7a25c91c-4a26-4279-854f-13648d90fdd0]  File "/home/barry/Documentos/Machine_Learning/Machine_Learning/.venv/lib/python3.12/site-packages/metaflow/task.py", line 113, in _exec_step_function
+[MFLOG|0|2026-04-22T07:30:57.723063Z|runtime|f92a6d73-5b8a-48ed-adaa-d6faaf33ac4b]    step_function()
+[MFLOG|0|2026-04-22T07:30:57.723088Z|runtime|d9eceae6-af2f-41b7-b741-9fdb0b39bf33]  File "/home/barry/Documentos/Machine_Learning/ML_Project/pipeline.py", line 136, in train_ensemble
+[MFLOG|0|2026-04-22T07:30:57.723111Z|runtime|300012db-65b9-4740-a801-d4782d9a3285]    y_hat_ab = model_ab.predict(self.X_test)
+[MFLOG|0|2026-04-22T07:30:57.723136Z|runtime|a595336e-b8de-4dc2-ae68-c498189259a1]               ^^^^^^^^^^^^^^^^
+[MFLOG|0|2026-04-22T07:30:57.723159Z|runtime|1d74eb32-79dc-459f-8ca2-0e4b713e301a]AttributeError: 'AdaBoost' object has no attribute 'predict'. Did you mean: 'prediction'?
+[MFLOG|0|2026-04-22T07:30:57.723183Z|runtime|124a8366-7ff0-4df0-882c-090ef58bdaf9]
+[MFLOG|0|2026-04-22T07:30:57.723401Z|runtime|98212b8f-3ef7-4630-8b57-5dedc6638974]Task failed.
