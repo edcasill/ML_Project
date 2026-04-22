@@ -20,17 +20,21 @@ class DecisionTree:
         self.root = None
         self.num_classes = 2
 
-    def entropy(self, y):
-        counts = jnp.bincount(y, length=self.num_classes)
-        probs = counts / len(y)
+    def entropy(self, y, sample_weight):
+        # counts = jnp.bincount(y, length=self.num_classes)
+        counts = jnp.bincount(y, weights=sample_weight, length=self.num_classes)
+        total_weight = jnp.sum(sample_weight)
+        # probs = counts / len(y)
+        probs = counts / jnp.maximum(total_weight, 1e-9)
         probs = probs[probs > 0]  # Avoid log(0)
         return -jnp.sum(probs * jnp.log2(probs))
 
-    def best_split(self, X, y):
+    def best_split(self, X, y, sample_weight):
         best_gain = -1
         split_idx, split_thresh = None, None
         n_samples, n_features = X.shape
-        current_entropy = self.entropy(y)
+        total_weight = jnp.sum(sample_weight)
+        current_entropy = self.entropy(y, sample_weight)
 
         for feature in range(n_features):
             threshold = jnp.mean(X[:, feature])
@@ -40,26 +44,40 @@ class DecisionTree:
             if not jnp.any(left_mask) or not jnp.any(right_mask):
                 continue
 
+            # separate labels and weights
             y_l, y_r = y[left_mask], y[right_mask]
-            n_l, n_r = len(y_l), len(y_r)
+            # n_l, n_r = len(y_l), len(y_r)
+            w_l, w_r = sample_weight[left_mask], sample_weight[right_mask]
 
-            entropy_l, entropy_r = self.entropy(y_l), self.entropy(y_r)
-            gain = current_entropy - (n_l / n_samples) * entropy_l - (n_r / n_samples) * entropy_r
+            # sum of weights
+            weight_l, weight_r = jnp.sum(w_l), jnp.sum(w_r)
+
+            # entropy
+            # entropy_l, entropy_r = self.entropy(y_l), self.entropy(y_r)
+            entropy_l, entropy_r = self.entropy(y_l, w_l), self.entropy(y_r, w_r)
+            # gain = current_entropy - (n_l / n_samples) * entropy_l - (n_r / n_samples) * entropy_r
+            gain = current_entropy - (weight_l / total_weight) * entropy_l - (weight_r / total_weight) * entropy_r
+
             if gain > best_gain:
                 best_gain = gain
                 split_idx = feature
                 split_thresh = threshold
+
         return split_idx, split_thresh
 
-    def build_tree(self, X, y, depth=0):
+    def build_tree(self, X, y, sample_weight, depth=0):
         n_samples = len(y)
-        counts = jnp.bincount(y, length=self.num_classes)
-        most_common = jnp.argmax(counts)
+        # counts = jnp.bincount(y, length=self.num_classes)
+        # most_common = jnp.argmax(counts)
+        # the most common class is the one with more weight
+        weight_counts = jnp.bincount(y, weights=sample_weight, length=self.num_classes)
+        most_common = jnp.argmax(weight_counts)
 
-        if depth >= self.max_depth or n_samples < self.min_samples or jnp.max(counts) == n_samples:
+        # if depth >= self.max_depth or n_samples < self.min_samples or jnp.max(counts) == n_samples:
+        if depth >= self.max_depth or n_samples < self.min_samples or jnp.max(weight_counts) >= jnp.sum(sample_weight) - 1e-9:  # noqa
             return Node(value=most_common)
 
-        feature, threshold = self.best_split(X, y)
+        feature, threshold = self.best_split(X, y, sample_weight)
 
         if feature is None:
             return Node(value=most_common)
@@ -67,19 +85,28 @@ class DecisionTree:
         left_mask = X[:, feature] <= threshold
         right_mask = ~left_mask
 
-        left = self.build_tree(X[left_mask], y[left_mask], depth + 1)
-        right = self.build_tree(X[right_mask], y[right_mask], depth + 1)
+        # left = self.build_tree(X[left_mask], y[left_mask], depth + 1)
+        # right = self.build_tree(X[right_mask], y[right_mask], depth + 1)
+        left = self.build_tree(X[left_mask], y[left_mask], sample_weight[left_mask], depth + 1)
+        right = self.build_tree(X[right_mask], y[right_mask], sample_weight[right_mask], depth + 1)
 
         return Node(feature=feature, threshold=threshold, left=left, right=right)
 
-    def fit(self, X, y):
-        self.root = self.build_tree(X, y)
+    def fit(self, X, y, sample_weight=None):
+        # if there's no weight, all of them are 1 (og)
+        if sample_weight is None:
+            sample_weight = jnp.ones(len(y))
+        else:
+            sample_weight = jnp.array(sample_weight)
+        self.root = self.build_tree(X, y, sample_weight)
 
     def predict_sample(self, x, node):
         if node.value is not None:
             return node.value
+
         if x[node.feature] <= node.threshold:
             return self.predict_sample(x, node.left)
+
         return self.predict_sample(x, node.right)
 
     def predict(self, X):

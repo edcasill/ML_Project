@@ -493,8 +493,9 @@ def main():
 
         # ARTIFACTS
         # save parameters learned by em algorithm
-        jnp.savez("ab_parameters.npz", pi=boost_model.pi, mu=boost_model.mu, sigma=boost_model.sigma)
-        mlflow.log_artifact("ab_parameters.npz")
+        with open("adaboost_model.pkl", "wb") as f:
+            pickle.dump(boost_model, f)
+        mlflow.log_artifact("adaboost_model.pkl")
 
         fig_val_ab, ax_val_ab = plt.subplots(figsize=(6, 5))
         plot_cm(ax_val_ab, val_cm_ab, fig_val_ab, "Confusion matrix val - AdaBoost")

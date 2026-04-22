@@ -27,16 +27,9 @@ class AdaBoost:
         y_boost = jnp.where(y == 0, -1, 1)  # if y=0 -> -1, 1 otherwise
 
         for m in range(self.M):
-            self.key, subkey = jax.random.split(self.key)  # for a random choice
-
-            # re-sample based on weigths w
-            index = jax.random.choice(subkey, jnp.arange(N), shape=(N,), p=w, replace=True)
-            X_m = X[index]
-            y_m = y[index]
-
             # initialize weak learner (stump)
             stump = tree.DecisionTree(max_depth=1, min_samples=2)
-            stump.fit(X_m, y_m)
+            stump.fit(X, y, sample_weight=w)
 
             # predict original data
             predict = stump.predict(X)
